@@ -1,0 +1,31 @@
+{
+  "name": "@biothings-explorer/smartapi-kg",
+  "version": "1.0.0",
+  "description": "create a knowledge graph based on SmartAPI Specifications",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinxin90/smartapi-kg.js.git"
+  },
+  "keywords": [
+    "smartapi",
+    "biothings",
+    "explorer",
+    "netwrok",
+    "knowledge",
+    "graph",
+    "kg"
+  ],
+  "author": "Jiwen Xin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinxin90/smartapi-kg.js/issues"
+  },
+  "homepage": "https://github.com/kevinxin90/smartapi-kg.js#readme",
+  "devDependencies": {
+    "coveralls": "^3.1.0"
+  }
+}
