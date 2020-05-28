@@ -24,7 +24,7 @@ exports.loadSpecsFromRemote = async () => {
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
  */
 exports.loadSpecsFromLocalCache = async () => {
-    const specs_folder = './smartapi_specs/';
+    const specs_folder = __dirname + '/smartapi_specs/';
     let specs = [];
     let files = fs.readdirSync(specs_folder);
     for (let i = 0; i < files.length; i++) {
