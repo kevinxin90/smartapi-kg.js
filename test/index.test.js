@@ -1,8 +1,31 @@
-const main = require("../index");
-const _ = require("lodash");
+const kg = require('../index');
 
-test("load smartapi into networkx", () => {
-    const kg = new main.KnowledgeGraph();
-    const ncbi_mondo_edges = _.filter(kg.G.edges(true), function (o) { return o[0] === 'NCBIGene' && o[1] === 'MONDO' });
-    expect(ncbi_mondo_edges.length).toBeGreaterThan(1);
-})
+describe('test Meta-KG using local specs', () => {
+
+    let meta_kg;
+
+    beforeAll(async () => {
+        meta_kg = new kg();
+        await meta_kg.constructMetaKG();
+    });
+
+    test("test filter", () => {
+        let res = meta_kg.filter({ predicate: 'treats' });
+        expect(res[0]['association']['predicate']).toBe('treats');
+    });
+});
+
+describe('test Meta-KG through query SmartAPI API', () => {
+
+    let meta_kg;
+
+    beforeAll(async () => {
+        meta_kg = new kg();
+        await meta_kg.constructMetaKG(source = "remote");
+    });
+
+    test("test filter", () => {
+        let res = meta_kg.filter({ predicate: 'treats' });
+        expect(res[0]['association']['predicate']).toBe('treats');
+    });
+});
