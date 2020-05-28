@@ -13,6 +13,11 @@ describe('test Meta-KG using local specs', () => {
         let res = meta_kg.filter({ predicate: 'treats' });
         expect(res[0]['association']['predicate']).toBe('treats');
     });
+
+    test("test filter with value as array", () => {
+        let res = meta_kg.filter({ predicate: ['treats'] });
+        expect(res[0]['association']['predicate']).toBe('treats');
+    });
 });
 
 describe('test Meta-KG through query SmartAPI API', () => {
