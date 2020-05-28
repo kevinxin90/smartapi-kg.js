@@ -1,6 +1,6 @@
 {
   "name": "@biothings-explorer/smartapi-kg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "create a knowledge graph based on SmartAPI Specifications",
   "main": "index.js",
   "scripts": {
@@ -13,11 +13,9 @@
   },
   "keywords": [
     "smartapi",
-    "biothings",
-    "explorer",
-    "netwrok",
-    "knowledge",
-    "graph",
+    "biothings-explorer",
+    "network",
+    "knowledge graph",
     "kg"
   ],
   "author": "Jiwen Xin",
@@ -29,10 +27,14 @@
   "devDependencies": {
     "coveralls": "^3.1.0",
     "jest": "^26.0.1",
+    "jsdoc": "^3.6.4",
     "lodash": "^4.17.15"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "jsnetworkx": "^0.3.4",
-    "smartapi-parser": "^1.0.1"
+    "load-json-file": "^6.2.0",
+    "sift": "^13.0.3",
+    "smartapi-parser": "^1.0.6"
   }
 }
