@@ -57,10 +57,11 @@ exports.loadSpecs = async () => {
 },{"axios":9,"load-json-file":324}],2:[function(require,module,exports){
 const parser = require("smartapi-parser");
 const jsnx = require('jsnetworkx');
+const sift = require("sift")
 const dataload = require("./dataload");
 const utils = require("./utils");
 
-module.exports = class MetaKG {
+exports.MetaKG = class MetaKG {
     /**
      * constructor to build meta knowledge graph from SmartAPI Specifications
      */
@@ -104,7 +105,7 @@ module.exports = class MetaKG {
     }
 }
 
-},{"./dataload":1,"./utils":335,"jsnetworkx":246,"smartapi-parser":331}],3:[function(require,module,exports){
+},{"./dataload":1,"./utils":335,"jsnetworkx":246,"sift":327,"smartapi-parser":331}],3:[function(require,module,exports){
 (function (process){
 "use strict";
 

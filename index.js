@@ -1,9 +1,10 @@
 const parser = require("smartapi-parser");
 const jsnx = require('jsnetworkx');
+const sift = require("sift")
 const dataload = require("./dataload");
 const utils = require("./utils");
 
-module.exports = class MetaKG {
+exports.MetaKG = class MetaKG {
     /**
      * constructor to build meta knowledge graph from SmartAPI Specifications
      */
