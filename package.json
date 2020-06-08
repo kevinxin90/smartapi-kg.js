@@ -34,7 +34,7 @@
     "axios": "^0.19.2",
     "jsnetworkx": "^0.3.4",
     "load-json-file": "^6.2.0",
-    "sift": "^13.0.3",
-    "smartapi-parser": "^1.0.6"
+    "sift": "^13.1.10",
+    "smartapi-parser": "^1.0.7"
   }
 }
