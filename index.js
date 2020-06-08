@@ -18,7 +18,7 @@ module.exports = class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {string} source - specify where the smartapi specs is located, should be either 'local' or 'remote'
      */
-    constructMetaKG = async (source = 'local') => {
+    async constructMetaKG(source = 'local') {
         let api;
         let specs = await dataload.loadSpecs(source);
         specs.map(spec => {
@@ -42,7 +42,7 @@ module.exports = class MetaKG {
      * Filter the Meta-KG operations based on specific criteria
      * @param {Object} - filtering criteria, each key represents the field to be quried
      */
-    filter = (criteria) => {
+    filter(criteria) {
         return utils.filterAssociations(this.ops, criteria);
     }
 }
