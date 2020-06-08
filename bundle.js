@@ -1,6 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-(function (__dirname){
-const fs = require("fs");
+//const fs = require("fs");
 const axios = require('axios');
 const loadJsonFile = require('load-json-file');
 
@@ -25,37 +24,37 @@ exports.loadSpecsFromRemote = async () => {
  * Load All Local SmartAPI Specifications into memory
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
  */
-exports.loadSpecsFromLocalCache = async () => {
-    const specs_folder = __dirname + '/smartapi_specs/';
-    let specs = [];
-    let files = fs.readdirSync(specs_folder);
-    for (let i = 0; i < files.length; i++) {
-        try {
-            let spec = await loadJsonFile(specs_folder + files[i]);
-            specs.push(spec);
-        } catch (err) {
-            //console.log(err);
-        }
-    }
-    return specs;
-}
+// exports.loadSpecsFromLocalCache = async () => {
+//     const specs_folder = __dirname + '/smartapi_specs/';
+//     let specs = [];
+//     let files = fs.readdirSync(specs_folder);
+//     for (let i = 0; i < files.length; i++) {
+//         try {
+//             let spec = await loadJsonFile(specs_folder + files[i]);
+//             specs.push(spec);
+//         } catch (err) {
+//             //console.log(err);
+//         }
+//     }
+//     return specs;
+// }
 
 /**
  * Load All SmartAPI Specifications into memory
  * @param {String} source - where SmartAPI specifications come from, should be either "local" or "remote"
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
  */
-exports.loadSpecs = async (source = "local") => {
+exports.loadSpecs = async () => {
     let specs;
-    if (source === 'local') {
-        specs = await this.loadSpecsFromLocalCache();
-    } else if (source === 'remote') {
-        specs = await this.loadSpecsFromRemote();
-    }
+    // if (source === 'local') {
+    //     specs = await this.loadSpecsFromLocalCache();
+    // } else if (source === 'remote') {
+    //     specs = await this.loadSpecsFromRemote();
+    // }
+    specs = await this.loadSpecsFromRemote();
     return specs;
 }
-}).call(this,"/")
-},{"axios":9,"fs":336,"load-json-file":324}],2:[function(require,module,exports){
+},{"axios":9,"load-json-file":324}],2:[function(require,module,exports){
 const parser = require("smartapi-parser");
 const jsnx = require('jsnetworkx');
 const dataload = require("./dataload");

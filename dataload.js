@@ -1,4 +1,4 @@
-const fs = require("fs");
+//const fs = require("fs");
 const axios = require('axios');
 const loadJsonFile = require('load-json-file');
 
@@ -23,32 +23,33 @@ exports.loadSpecsFromRemote = async () => {
  * Load All Local SmartAPI Specifications into memory
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
  */
-exports.loadSpecsFromLocalCache = async () => {
-    const specs_folder = __dirname + '/smartapi_specs/';
-    let specs = [];
-    let files = fs.readdirSync(specs_folder);
-    for (let i = 0; i < files.length; i++) {
-        try {
-            let spec = await loadJsonFile(specs_folder + files[i]);
-            specs.push(spec);
-        } catch (err) {
-            //console.log(err);
-        }
-    }
-    return specs;
-}
+// exports.loadSpecsFromLocalCache = async () => {
+//     const specs_folder = __dirname + '/smartapi_specs/';
+//     let specs = [];
+//     let files = fs.readdirSync(specs_folder);
+//     for (let i = 0; i < files.length; i++) {
+//         try {
+//             let spec = await loadJsonFile(specs_folder + files[i]);
+//             specs.push(spec);
+//         } catch (err) {
+//             //console.log(err);
+//         }
+//     }
+//     return specs;
+// }
 
 /**
  * Load All SmartAPI Specifications into memory
  * @param {String} source - where SmartAPI specifications come from, should be either "local" or "remote"
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
  */
-exports.loadSpecs = async (source = "local") => {
+exports.loadSpecs = async () => {
     let specs;
-    if (source === 'local') {
-        specs = await this.loadSpecsFromLocalCache();
-    } else if (source === 'remote') {
-        specs = await this.loadSpecsFromRemote();
-    }
+    // if (source === 'local') {
+    //     specs = await this.loadSpecsFromLocalCache();
+    // } else if (source === 'remote') {
+    //     specs = await this.loadSpecsFromRemote();
+    // }
+    specs = await this.loadSpecsFromRemote();
     return specs;
 }
