@@ -1,8 +1,8 @@
 {
   "name": "@biothings-explorer/smartapi-kg",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "create a knowledge graph based on SmartAPI Specifications",
-  "main": "bundle.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
