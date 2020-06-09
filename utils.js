@@ -1,4 +1,4 @@
-const sift = require("sift")
+//let sf = require("sift")
 
 // exports.constructFilter = (criteria) => {
 //     const range = ['input_id', 'input_type', 'output_id',
@@ -52,6 +52,38 @@ exports.constructFilter = (criteria) => {
  * @param {Object} criteria - the filter criteria
  */
 exports.filterAssociations = (associations, criteria) => {
-    let filters = this.constructFilter(criteria);
-    return associations.filter(sift(filters));
+    let all_input_types = new Set(), all_output_types = new Set(), all_predicates = new Set();
+    let input_types, output_types, predicates;
+    associations.map(item => {
+        all_input_types.add(item.association.input_type);
+        all_output_types.add(item.association.output_type);
+        all_predicates.add(item.association.predicate);
+    });
+    if (!("input_type" in criteria)) {
+        input_types = all_input_types;
+    } else {
+        if (!Array.isArray(criteria.input_type)) {
+            criteria.input_type = [criteria.input_type]
+        }
+        input_types = new Set(criteria.input_type)
+    }
+    if (!("output_type" in criteria)) {
+        output_types = all_output_types;
+    } else {
+        if (!Array.isArray(criteria.output_type)) {
+            criteria.output_type = [criteria.output_type]
+        }
+        output_types = new Set(criteria.output_type)
+    }
+    if (!("predicate" in criteria)) {
+        predicates = all_predicates;
+    } else {
+        if (!Array.isArray(criteria.predicate)) {
+            criteria.predicate = [criteria.predicate]
+        }
+        predicates = new Set(criteria.predicate)
+    };
+    //let filters = this.constructFilter(criteria);
+    //return associations.filter(sf(filters));
+    return associations.filter(rec => input_types.has(rec.association.input_type) && output_types.has(rec.association.output_type) && predicates.has(rec.association.predicate))
 }

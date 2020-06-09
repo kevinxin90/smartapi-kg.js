@@ -1,10 +1,9 @@
 const parser = require("smartapi-parser");
 const jsnx = require('jsnetworkx');
-const sift = require("sift")
 const dataload = require("./dataload");
 const utils = require("./utils");
 
-exports.MetaKG = class MetaKG {
+class MetaKG {
     /**
      * constructor to build meta knowledge graph from SmartAPI Specifications
      */
@@ -19,9 +18,9 @@ exports.MetaKG = class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {string} source - specify where the smartapi specs is located, should be either 'local' or 'remote'
      */
-    async constructMetaKG(source = 'local') {
+    async constructMetaKG() {
         let api;
-        let specs = await dataload.loadSpecs(source);
+        let specs = await dataload.loadSpecs();
         specs.map(spec => {
             try {
                 api = new parser(spec);
@@ -47,3 +46,5 @@ exports.MetaKG = class MetaKG {
         return utils.filterAssociations(this.ops, criteria);
     }
 }
+
+module.exports = MetaKG;

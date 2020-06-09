@@ -1,6 +1,5 @@
 //const fs = require("fs");
 const axios = require('axios');
-const loadJsonFile = require('load-json-file');
 
 /**
  * Load SmartAPI Specifications from the SmartAPI programming interface into memory
