@@ -1,0 +1,10 @@
+{
+    "name": "@runkit/kevinxin90_smartapi-kg-demo",
+    "version": "0.0.0-master",
+    "dependencies": {
+        "@biothings-explorer/smartapi-kg": {
+            "version": "1.0.1",
+            "from": "https://registry.npmjs.org/@biothings-explorer/smartapi-kg/-/biothings-explorer/smartapi-kg-1.0.1.tgz"
+        }
+    }
+}

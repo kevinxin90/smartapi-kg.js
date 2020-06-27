@@ -39,6 +39,30 @@ class MetaKG {
     }
 
     /**
+     * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
+     * @param {string} source - specify where the smartapi specs is located, should be either 'local' or 'remote'
+     */
+    constructMetaKGSync() {
+        let api;
+        let specs = dataload.loadSpecsSync();
+        specs.map(spec => {
+            try {
+                api = new parser(spec);
+                api.metadata.operations.map(op => {
+                    this.ops.push(op);
+                    this.graph.addEdge(
+                        op.association.input_id,
+                        op.association.output_id,
+                        op
+                    )
+                })
+            } catch (err) {
+                //console.log(err);
+            }
+        })
+    }
+
+    /**
      * Filter the Meta-KG operations based on specific criteria
      * @param {Object} - filtering criteria, each key represents the field to be quried
      */

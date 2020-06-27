@@ -1,6 +1,7 @@
 //const fs = require("fs");
 const axios = require('axios');
 
+
 /**
  * Load SmartAPI Specifications from the SmartAPI programming interface into memory
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
@@ -51,4 +52,15 @@ exports.loadSpecs = async () => {
     // }
     specs = await this.loadSpecsFromRemote();
     return specs;
+}
+
+exports.loadSpecsSync = () => {
+    const smartapi_specs = require("./specs");
+    return smartapi_specs.hits.map(spec => {
+        spec.paths = spec.paths.reduce((obj, path) => {
+            obj[path.path] = path.pathitem;
+            return obj;
+        }, {});
+        return spec;
+    })
 }
