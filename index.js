@@ -2,6 +2,7 @@ const parser = require("smartapi-parser");
 const jsnx = require('jsnetworkx');
 const dataload = require("./dataload");
 const utils = require("./utils");
+const reasonerParser = require("./reasoner");
 
 class MetaKG {
     /**
@@ -16,14 +17,20 @@ class MetaKG {
 
     /**
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
-     * @param {string} source - specify where the smartapi specs is located, should be either 'local' or 'remote'
+     * @param {boolean} includeReasoner - specify whether to include reasonerStdAPI into meta-kg
      */
-    async constructMetaKG() {
+    async constructMetaKG(includeReasoner = false) {
         let api;
         let specs = await dataload.loadSpecs();
+        let reasoner = {};
         specs.map(spec => {
             try {
                 api = new parser(spec);
+                if (api.metadata.operations.length === 0 && includeReasoner === true && api.metadata.tags.includes("reasoner") && api.metadata.paths.includes("/predicates")) {
+                    reasoner[api.metadata.title] = {
+                        metadata: api.metadata
+                    }
+                }
                 api.metadata.operations.map(op => {
                     this.ops.push(op);
                     this.graph.addEdge(
@@ -35,7 +42,11 @@ class MetaKG {
             } catch (err) {
                 //console.log(err);
             }
-        })
+        });
+        if (includeReasoner === true && Object.keys(reasoner).length > 0) {
+            let reasonerOps = await reasonerParser.fetchReasonerOps(reasoner);
+            this.ops = [...this.ops, ...reasonerOps];
+        }
     }
 
     /**
