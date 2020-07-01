@@ -57,10 +57,12 @@ exports.loadSpecs = async () => {
 exports.loadSpecsSync = () => {
     const smartapi_specs = require("./specs");
     return smartapi_specs.hits.map(spec => {
-        spec.paths = spec.paths.reduce((obj, path) => {
-            obj[path.path] = path.pathitem;
-            return obj;
-        }, {});
+        if (Array.isArray(spec.paths)) {
+            spec.paths = spec.paths.reduce((obj, path) => {
+                obj[path.path] = path.pathitem;
+                return obj;
+            }, {});
+        }
         return spec;
     })
 }
