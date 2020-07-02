@@ -23,7 +23,7 @@ npm i @biothings-explorer/smartapi-kg
 
 ## Usage
 
-  1. Import and Initialize
+- Import and Initialize
 
     ```javascript
     const kg = require("@biothings-explorer/smartapi-kg")
@@ -31,28 +31,29 @@ npm i @biothings-explorer/smartapi-kg
     let meta_kg = new kg()
     ```
 
-  2. Load the Meta Knowledge Graph (kg)
+- Load the Meta Knowledge Graph (kg)
 
-    * Option 1: Load Meta-KG from SmartAPI specs with x-smartapi field included
+  - Option 1: Load Meta-KG from SmartAPI specs with x-smartapi field included
 
     ```javascript
     //async load knowledge graph from SmartAPI
     await meta_kg.constructMetaKG()
     ```
-    * Option 2: Load Meta-KG from SmartAPI specs with x-smartapi field as well as ReasonerStdAPI with /predicates endpoint
+
+  - Option 2: Load Meta-KG from SmartAPI specs with x-smartapi field as well as ReasonerStdAPI with /predicates endpoint
 
     ```javascript
     await meta_kg.constructMetaKG(includeReasoner = true);
     ```
 
-    * Option 3: Load Meta-KG from a local copy of SmartAPI specs included in the package
+  - Option 3: Load Meta-KG from a local copy of SmartAPI specs included in the package
 
     ```javascript
     //Alternatively, you can also sync load SmartAPI specs from a local copy within the package
     meta_kg.constructMetaKGSync();
     ```
 
-  3. Filter the Meta-KG for specific associations based on input, output or predicate combinations.
+- Filter the Meta-KG for specific associations based on input, output or predicate combinations.
 
     ```javascript
     //filter based on predicate
