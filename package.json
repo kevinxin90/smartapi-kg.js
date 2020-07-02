@@ -29,6 +29,7 @@
     "jest": "^26.1.0",
     "jsdoc": "^3.6.4",
     "lodash": "^4.17.15",
+    "readme-md-generator": "^1.0.0",
     "uglify-js": "^3.10.0"
   },
   "dependencies": {
