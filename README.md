@@ -11,7 +11,7 @@
   </a>
 </p>
 
-> create a knowledge graph based on SmartAPI Specifications
+> Generate a meta knowledge graph of how biomedical concepts are connected based on SmartAPI Specifications with built-in filtering capabilities
 
 ### 🏠 [Homepage](https://github.com/kevinxin90/smartapi-kg.js#readme)
 
@@ -31,7 +31,7 @@ npm i @biothings-explorer/smartapi-kg
     let meta_kg = new kg()
     ```
 
-- Load the Meta Knowledge Graph (kg)
+- Load the Meta Knowledge Graph (meta-kg)
 
   - Option 1: Load Meta-KG from SmartAPI specs with x-smartapi field included
 
