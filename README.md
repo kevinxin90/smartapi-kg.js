@@ -23,22 +23,47 @@ npm i @biothings-explorer/smartapi-kg
 
 ## Usage
 
-```javascript
-const kg = require("@biothings-explorer/smartapi-kg")
-//initiate a new knowledge graph class
-let meta_kg = new kg()
-//async load knowledge graph from SmartAPI
-await meta_kg.constructMetaKG()
-//Alternatively, you can load additional knowledge graph from SmartAPI for ReasonerStdAPI
-await meta_kg.constructMetaKG(includeReasoner = true);
-//Alternatively, you can also sync load SmartAPI specs from a local copy within the package
-meta_kg.constructMetaKGSync();
-//filter based on input/output/predicate
-meta_kg.filter({predicate: 'treats'})
-meta_kg.filter({predicate: 'treats', input_id: 'CHEMBL.COMPOUND'})
-meta_kg.filter({predicate: ['treats', 'physically_interacts_with'], input_type: 'ChemicalSubstance'})
+  1. Import and Initialize
 
-```
+    ```javascript
+    const kg = require("@biothings-explorer/smartapi-kg")
+    //initiate a new knowledge graph class
+    let meta_kg = new kg()
+    ```
+
+  2. Load the Meta Knowledge Graph (kg)
+
+    * Option 1: Load Meta-KG from SmartAPI specs with x-smartapi field included
+
+    ```javascript
+    //async load knowledge graph from SmartAPI
+    await meta_kg.constructMetaKG()
+    ```
+    * Option 2: Load Meta-KG from SmartAPI specs with x-smartapi field as well as ReasonerStdAPI with /predicates endpoint
+
+    ```javascript
+    await meta_kg.constructMetaKG(includeReasoner = true);
+    ```
+
+    * Option 3: Load Meta-KG from a local copy of SmartAPI specs included in the package
+
+    ```javascript
+    //Alternatively, you can also sync load SmartAPI specs from a local copy within the package
+    meta_kg.constructMetaKGSync();
+    ```
+
+  3. Filter the Meta-KG for specific associations based on input, output or predicate combinations.
+
+    ```javascript
+    //filter based on predicate
+    meta_kg.filter({predicate: 'treats'})
+    //filter based on predicate and input_id
+    meta_kg.filter({predicate: 'treats', input_id: 'CHEMBL.COMPOUND'})
+    //filter based on predicate and input_type
+    meta_kg.filter({predicate: ['treats', 'physically_interacts_with'], input_type: 'ChemicalSubstance'})
+
+    ```
+
 [Runkit Notebook Demo](https://runkit.com/kevinxin90/smartapi-kg-demo)
 
 ## Run tests
