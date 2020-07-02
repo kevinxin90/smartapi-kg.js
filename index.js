@@ -32,6 +32,7 @@ class MetaKG {
                     }
                 }
                 api.metadata.operations.map(op => {
+                    op.tags = api.metadata.tags;
                     this.ops.push(op);
                     this.graph.addEdge(
                         op.association.input_id,

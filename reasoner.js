@@ -42,6 +42,7 @@ const fetchReasonerOps = async (metadata) => {
             .then(res => {
                 let result = parsePredicatesEndpoint(res.data);
                 result.map(op => {
+                    op.tags = ['translator', 'reasoner'];
                     op.association.api_name = apiName;
                     op.association.smartapi = metadata[apiName].metadata.smartapi;
                     ops.push(op);
