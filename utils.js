@@ -52,12 +52,13 @@ exports.constructFilter = (criteria) => {
  * @param {Object} criteria - the filter criteria
  */
 exports.filterAssociations = (associations, criteria) => {
-    let all_input_types = new Set(), all_output_types = new Set(), all_predicates = new Set();
-    let input_types, output_types, predicates;
+    let all_input_types = new Set(), all_output_types = new Set(), all_predicates = new Set(), all_apis = new Set();
+    let input_types, output_types, predicates, apis;
     associations.map(item => {
         all_input_types.add(item.association.input_type);
         all_output_types.add(item.association.output_type);
         all_predicates.add(item.association.predicate);
+        all_apis.add(item.association.api_name);
     });
     if (!("input_type" in criteria)) {
         input_types = all_input_types;
@@ -83,7 +84,15 @@ exports.filterAssociations = (associations, criteria) => {
         }
         predicates = new Set(criteria.predicate)
     };
+    if (!("api" in criteria)) {
+        apis = all_apis;
+    } else {
+        if (!Array.isArray(criteria.api)) {
+            criteria.api = [criteria.api]
+        }
+        apis = new Set(criteria.api)
+    };
     //let filters = this.constructFilter(criteria);
     //return associations.filter(sf(filters));
-    return associations.filter(rec => input_types.has(rec.association.input_type) && output_types.has(rec.association.output_type) && predicates.has(rec.association.predicate))
+    return associations.filter(rec => input_types.has(rec.association.input_type) && output_types.has(rec.association.output_type) && predicates.has(rec.association.predicate) && apis.has(rec.association.api_name))
 }
