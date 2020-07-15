@@ -53,7 +53,7 @@ npm i @biothings-explorer/smartapi-kg
     meta_kg.constructMetaKGSync();
     ```
 
-- Filter the Meta-KG for specific associations based on input, output or predicate combinations.
+- Filter the Meta-KG for specific associations based on input, output, predicate, or api combinations.
 
     ```javascript
     //filter based on predicate
@@ -62,6 +62,8 @@ npm i @biothings-explorer/smartapi-kg
     meta_kg.filter({predicate: 'treats', input_id: 'CHEMBL.COMPOUND'})
     //filter based on predicate and input_type
     meta_kg.filter({predicate: ['treats', 'physically_interacts_with'], input_type: 'ChemicalSubstance'})
+    //filter based on input_type, output_type and api
+    meta_kg.filter({ api: "Automat PHAROS API", input_type: "ChemicalSubstance", output_type: "Gene" });
 
     ```
 
