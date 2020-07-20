@@ -60,7 +60,7 @@ exports.filterAssociations = (associations, criteria) => {
         all_predicates.add(item.association.predicate);
         all_apis.add(item.association.api_name);
     });
-    if (!("input_type" in criteria)) {
+    if (!("input_type" in criteria) || criteria.input_type === undefined) {
         input_types = all_input_types;
     } else {
         if (!Array.isArray(criteria.input_type)) {
@@ -68,7 +68,7 @@ exports.filterAssociations = (associations, criteria) => {
         }
         input_types = new Set(criteria.input_type)
     }
-    if (!("output_type" in criteria)) {
+    if (!("output_type" in criteria) || criteria.output_type === undefined) {
         output_types = all_output_types;
     } else {
         if (!Array.isArray(criteria.output_type)) {
@@ -76,7 +76,7 @@ exports.filterAssociations = (associations, criteria) => {
         }
         output_types = new Set(criteria.output_type)
     }
-    if (!("predicate" in criteria)) {
+    if (!("predicate" in criteria) || criteria.predicate === undefined) {
         predicates = all_predicates;
     } else {
         if (!Array.isArray(criteria.predicate)) {
@@ -84,7 +84,7 @@ exports.filterAssociations = (associations, criteria) => {
         }
         predicates = new Set(criteria.predicate)
     };
-    if (!("api" in criteria)) {
+    if (!("api" in criteria) || criteria.api === undefined) {
         apis = all_apis;
     } else {
         if (!Array.isArray(criteria.api)) {
