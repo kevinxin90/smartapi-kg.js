@@ -66,3 +66,17 @@ exports.loadSpecsSync = () => {
         return spec;
     })
 }
+
+exports.loadBioThingsSpecsSync = () => {
+    const smartapi_specs = require("./specs");
+    return smartapi_specs.hits.map(spec => {
+        let tags = spec.tags.map(item => item.name);
+        if (Array.isArray(spec.paths) && tags.includes("biothings")) {
+            spec.paths = spec.paths.reduce((obj, path) => {
+                obj[path.path] = path.pathitem;
+                return obj;
+            }, {});
+        }
+        return spec;
+    })
+}
