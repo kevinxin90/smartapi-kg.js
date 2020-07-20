@@ -54,9 +54,13 @@ class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {string} source - specify where the smartapi specs is located, should be either 'local' or 'remote'
      */
-    constructMetaKGSync() {
-        let api;
-        let specs = dataload.loadSpecsSync();
+    constructMetaKGSync(category = undefined) {
+        let api, specs;
+        if (category === "biothings") {
+            specs = dataload.loadBioThingsSpecsSync();
+        } else {
+            specs = dataload.loadSpecsSync();
+        }
         specs.map(spec => {
             try {
                 api = new parser(spec);
