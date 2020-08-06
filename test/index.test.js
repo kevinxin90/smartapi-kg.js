@@ -1,4 +1,4 @@
-const kg = require('../index');
+const kg = require('../src/index');
 
 describe('test Meta-KG using local specs', () => {
 
@@ -20,14 +20,14 @@ describe('test Meta-KG using local specs', () => {
     });
 
     test("test filter by api", () => {
-        let res = meta_kg.filter({ api: "MyChem.info API" });
+        let res = meta_kg.filter({ api_name: "MyChem.info API" });
         expect(res[0]['association']['api_name']).toBe("MyChem.info API");
-        res = meta_kg.filter({ api: "Automat PHAROS API" });
+        res = meta_kg.filter({ api_name: "Automat PHAROS API" });
         expect(res[0]['association']['api_name']).toBe("Automat PHAROS API");
     });
 
     test("test filter by multiple criteria", () => {
-        let res = meta_kg.filter({ api: "Automat PHAROS API", input_type: "ChemicalSubstance", output_type: "Gene" });
+        let res = meta_kg.filter({ api_name: "Automat PHAROS API", input_type: "ChemicalSubstance", output_type: "Gene" });
         expect(res[0]['association']['api_name']).toBe("Automat PHAROS API");
         expect(res.length).toBe(1);
     });
@@ -53,12 +53,12 @@ describe('test Meta-KG using local specs of BioThings collection only', () => {
     });
 
     test("test filter by api", () => {
-        let res = meta_kg.filter({ api: "MyChem.info API" });
+        let res = meta_kg.filter({ api_name: "MyChem.info API" });
         expect(res[0]['association']['api_name']).toBe("MyChem.info API");
     });
 
     test("test filter by multiple criteria", () => {
-        let res = meta_kg.filter({ api: "Automat PHAROS API", input_type: "ChemicalSubstance", output_type: "Gene" });
+        let res = meta_kg.filter({ api_name: "Automat PHAROS API", input_type: "ChemicalSubstance", output_type: "Gene" });
         expect(res.length).toBe(0);
     });
 
