@@ -77,11 +77,34 @@ describe('test Meta-KG through query SmartAPI API', () => {
 
     beforeAll(async () => {
         meta_kg = new kg();
-        await meta_kg.constructMetaKG(source = "remote");
+        await meta_kg.constructMetaKG();
     });
 
     test("test filter", () => {
         let res = meta_kg.filter({ predicate: 'treats' });
         expect(res[0]['association']['predicate']).toBe('treats');
     });
+});
+
+describe('test Meta-KG through query SmartAPI API and include ReasonerAPI', () => {
+
+    let meta_kg;
+
+    beforeAll(async () => {
+        meta_kg = new kg();
+        await meta_kg.constructMetaKG(includeReasoner = true);
+    });
+
+    test("test if the response contains reasoner API", () => {
+        let api_names = meta_kg.ops.map(item => item.association.api_name);
+        expect(api_names).toContain("Molecular Data Provider API");
+    });
+
+    test("test if filter response contains reasoner API", () => {
+        let res = meta_kg.filter({ input_type: "ChemicalSubstance", output_type: "ChemicalSubstance", predicate: "correlated_with" })
+        let api_names = res.map(item => item.association.api_name);
+        expect(api_names).toContain("Molecular Data Provider API");
+    });
+
+
 });
