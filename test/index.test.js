@@ -39,7 +39,7 @@ describe('test Meta-KG using local specs of BioThings collection only', () => {
 
     beforeAll(() => {
         meta_kg = new kg();
-        meta_kg.constructMetaKGSync(category = "biothings");
+        meta_kg.constructMetaKGSync(tag = "biothings");
     });
 
     test("test filter", () => {
