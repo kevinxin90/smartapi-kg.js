@@ -1,6 +1,6 @@
 {
   "name": "@biothings-explorer/smartapi-kg",
-  "version": "1.1.7",
+  "version": "1.1.10",
   "description": "create a knowledge graph based on SmartAPI Specifications",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "coveralls": "^3.1.0",
     "jest": "^26.1.0",
     "jsdoc": "^3.6.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "readme-md-generator": "^1.0.0",
     "uglify-js": "^3.10.0"
   },
