@@ -1,5 +1,9 @@
 <h1 align="center">Welcome to @biothings-explorer/smartapi-kg 👋</h1>
 <p>
+  <a href="https://travis-ci.com/github/kevinxin90/smartapi-kg.js" target="_blank">
+    <img alt="Build" src="https://travis-ci.com/kevinxin90/smartapi-kg.js.svg?branch=master">
+  </a>
+  <a href='https://coveralls.io/github/kevinxin90/smartapi-kg.js?branch=master'><img src='https://coveralls.io/repos/github/kevinxin90/smartapi-kg.js/badge.svg?branch=master' alt='Coverage Status' /></a>
   <a href="https://www.npmjs.com/package/@biothings-explorer/smartapi-kg" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/@biothings-explorer/smartapi-kg.svg">
   </a>
