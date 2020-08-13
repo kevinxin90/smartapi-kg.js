@@ -21,6 +21,8 @@ class MetaKG {
      * @param {boolean} includeReasoner - specify whether to include reasonerStdAPI into meta-kg
      */
     populateOpsFromSpecs(specs, includeReasoner = false) {
+        this.ops = [];
+        this.graph = new jsnx.MultiDiGraph();
         let reasoner = {}, api;
         specs.map(spec => {
             try {
@@ -50,12 +52,16 @@ class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {boolean} includeReasoner - specify whether to include reasonerStdAPI into meta-kg
      */
-    async constructMetaKG(includeReasoner = false) {
+    async constructMetaKG(includeReasoner = false, tag = "translator") {
+        includeReasoner = includeReasoner || false;
         let specs = await dataload.loadSpecsFromRemote();
         let reasoner = this.populateOpsFromSpecs(specs, includeReasoner = includeReasoner)
         if (includeReasoner === true && Object.keys(reasoner).length > 0) {
             let reasonerOps = await reasonerParser.fetchReasonerOps(reasoner);
             this.ops = [...this.ops, ...reasonerOps];
+        }
+        if (tag !== "translator") {
+            this.ops = this.ops.filter(op => op.tags.includes(tag))
         }
     }
 
