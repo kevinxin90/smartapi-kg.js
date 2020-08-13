@@ -49,8 +49,14 @@ npm i @biothings-explorer/smartapi-kg
     ```javascript
     await meta_kg.constructMetaKG(includeReasoner = true);
     ```
+  
+  - Option 3: Load Meta-KG from SmartAPI specs with tags equal to biothings
 
-  - Option 3: Load Meta-KG from a local copy of SmartAPI specs included in the package
+    ```javascript
+    await meta_kg.constructMetaKG(includeReasoner = false, tag="biothings");
+    ```
+
+  - Option 4: Load Meta-KG from a local copy of SmartAPI specs included in the package
 
     ```javascript
     //Alternatively, you can also sync load SmartAPI specs from a local copy within the package
