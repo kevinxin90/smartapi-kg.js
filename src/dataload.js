@@ -10,11 +10,13 @@ exports.loadSpecsFromRemote = async () => {
     let response = await axios.get(SMARTAPI_URL);
     response = response.data.hits;
     return response.map(spec => {
-        spec.paths = spec.paths.reduce((obj, path) => {
-            obj[path.path] = path.pathitem;
-            return obj;
-        }, {});
-        return spec;
+        if (spec.paths) {
+            spec.paths = spec.paths.reduce((obj, path) => {
+                obj[path.path] = path.pathitem;
+                return obj;
+            }, {});
+            return spec;
+        }
     })
 }
 
