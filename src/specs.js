@@ -35447,7 +35447,7 @@ module.exports = {
                             ],
                             "parameters": {
                                 "fields": "association.context.disease.mondo,object.PUBCHEM,association.effect_size,association.pvalue",
-                                "q": "subject.NCBIGene:{inputs[0]}%20AND%20association.effect_size:<0%20AND%20association.pvalue:<0.05",
+                                "q": "subject.NCBIGene:{inputs[0]} AND association.effect_size:<0 AND association.pvalue:<0.05",
                                 "size": "1000",
                                 "sort": "association.pvalue"
                             },
@@ -41017,13 +41017,13 @@ module.exports = {
                     "variantAffectDrugResponse": [
                         {
                             "inputSeparator": ",",
-                            "inputs": [
+                            "outputs": [
                                 {
                                     "id": "name",
                                     "semantic": "ChemicalSubstance"
                                 }
                             ],
-                            "outputs": [
+                            "inputs": [
                                 {
                                     "id": "DBSNP",
                                     "semantic": "SequenceVariant"

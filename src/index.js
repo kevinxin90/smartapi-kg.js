@@ -15,6 +15,10 @@ class MetaKG {
         this.ops = [];
     }
 
+    getOps() {
+        return this.ops;
+    }
+
     /**
      * Populate meta-kg operations based on SmartAPI specifications
      * @param {array} specs - an array of SmartAPI specifications
@@ -52,9 +56,9 @@ class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {boolean} includeReasoner - specify whether to include reasonerStdAPI into meta-kg
      */
-    async constructMetaKG(includeReasoner = false, tag = "translator") {
+    async constructMetaKG(includeReasoner = false, tag = "translator", smartapiID = undefined) {
         includeReasoner = includeReasoner || false;
-        let specs = await dataload.loadSpecsFromRemote();
+        let specs = await dataload.loadSpecsFromRemote(smartapiID);
         let reasoner = this.populateOpsFromSpecs(specs, includeReasoner = includeReasoner)
         if (includeReasoner === true && Object.keys(reasoner).length > 0) {
             let reasonerOps = await reasonerParser.fetchReasonerOps(reasoner);

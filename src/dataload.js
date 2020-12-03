@@ -6,9 +6,21 @@ const SMARTAPI_URL = require("./config").SMARTAPI_URL;
  * Load SmartAPI Specifications from the SmartAPI API
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
  */
-exports.loadSpecsFromRemote = async () => {
-    let response = await axios.get(SMARTAPI_URL);
-    response = response.data.hits;
+exports.loadSpecsFromRemote = async (smartapiID = undefined) => {
+    let url_template = 'https://smart-api.info/api/metadata/{smartapi_id}';
+    let response;
+    if (smartapiID === undefined) {
+        response = await axios.get(SMARTAPI_URL);
+        response = response.data.hits;
+    } else {
+        response = await axios.get(url_template.replace("{smartapi_id}", smartapiID));
+        if (response.status === 200) {
+            response = [response.data];
+            return response
+        } else {
+            return [];
+        }
+    }
     return response.map(spec => {
         if (spec.paths) {
             spec.paths = spec.paths.reduce((obj, path) => {
