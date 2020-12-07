@@ -56,7 +56,7 @@ class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {boolean} includeReasoner - specify whether to include reasonerStdAPI into meta-kg
      */
-    async constructMetaKG(includeReasoner = false, tag = "translator", smartapiID = undefined) {
+    async constructMetaKG(includeReasoner = false, tag = "translator", smartapiID = undefined, team = undefined) {
         includeReasoner = includeReasoner || false;
         let specs = await dataload.loadSpecsFromRemote(smartapiID);
         let reasoner = this.populateOpsFromSpecs(specs, includeReasoner = includeReasoner)
@@ -66,6 +66,9 @@ class MetaKG {
         }
         if (tag !== "translator") {
             this.ops = this.ops.filter(op => op.tags.includes(tag))
+        }
+        if (team !== undefined) {
+            this.ops = this.ops.filter(op => op.association["x-translator"].team.includes(team));
         }
     }
 
