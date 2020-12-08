@@ -1,7 +1,8 @@
 //const fs = require("fs");
 const axios = require('axios');
+const InvalidSmartAPIIDError = require('./utils/errors/invalid_smartapi_id_error');
 const SMARTAPI_URL = require("./config").SMARTAPI_URL;
-
+const invalidSmartAPIIDError = require("./utils/errors/invalid_smartapi_id_error")
 /**
  * Load SmartAPI Specifications from the SmartAPI API
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
@@ -15,6 +16,9 @@ exports.loadSpecsFromRemote = async (smartapiID = undefined) => {
     } else {
         response = await axios.get(url_template.replace("{smartapi_id}", smartapiID));
         if (response.status === 200) {
+            if (Array.isArray(response.data) && response.data.length === 0) {
+                throw InvalidSmartAPIIDError();
+            }
             response = [response.data];
             return response
         } else {
