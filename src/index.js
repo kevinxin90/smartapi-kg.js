@@ -3,6 +3,7 @@ const jsnx = require('jsnetworkx');
 const dataload = require("./dataload");
 const ft = require("./filter");
 const reasonerParser = require("./reasoner");
+const debug = require("debug")("smartapi-kg");
 
 class MetaKG {
     /**
@@ -46,7 +47,7 @@ class MetaKG {
                     )
                 })
             } catch (err) {
-                //console.log(err);
+                debug(`[error]: Unable to parse spec, ${(spec) ? spec.info.title : spec}`);
             }
         });
         return reasoner
@@ -57,18 +58,26 @@ class MetaKG {
      * @param {boolean} includeReasoner - specify whether to include reasonerStdAPI into meta-kg
      */
     async constructMetaKG(includeReasoner = false, tag = "translator", smartapiID = undefined, team = undefined) {
+        debug(`[info]: Constructing meta-kg by querying SmartAPI alive, includeReasoner -> ${includeReasoner}, tag -> ${tag}, smartapiID -> ${smartapiID}, team -> ${team}`);
         includeReasoner = includeReasoner || false;
         let specs = await dataload.loadSpecsFromRemote(smartapiID);
-        let reasoner = this.populateOpsFromSpecs(specs, includeReasoner = includeReasoner)
+        let reasoner = this.populateOpsFromSpecs(specs, includeReasoner = includeReasoner);
         if (includeReasoner === true && Object.keys(reasoner).length > 0) {
+            debug("[info]: Start ot fetch TRAPI operations from /predicates endpoints.");
             let reasonerOps = await reasonerParser.fetchReasonerOps(reasoner);
+            debug(`[info]: Successfully fetched ${reasonerOps.length} kgx operations from TRAPI /predicates endpoints.`);
             this.ops = [...this.ops, ...reasonerOps];
+            debug(`[info]: Total kgx operations is ${this.ops.length}`);
         }
         if (tag !== "translator") {
-            this.ops = this.ops.filter(op => op.tags.includes(tag))
+            debug(`[info]: Filtering kgx operations by limiting ops from ${tag} tag only`)
+            this.ops = this.ops.filter(op => op.tags.includes(tag));
+            debug(`[info]: Total kgx operatioins after filtering is ${this.ops.length}`);
         }
         if (team !== undefined) {
+            debug(`[info]: Filtering kgx operations by limiting ops from ${team} team onky.`);
             this.ops = this.ops.filter(op => op.association["x-translator"].team.includes(team));
+            debug(`[info]: Total kgx operatioins after filtering is ${this.ops.length}`);
         }
     }
 
@@ -77,6 +86,7 @@ class MetaKG {
      * @param {string} tag - the SmartAPI tag to be filtered on
      */
     constructMetaKGSync(tag = "translator") {
+        debug(`Constructing meta-kg by querying local smartapi spec, tag -> ${tag}`);
         let specs;
         if (tag !== "translator") {
             specs = dataload.loadSpecsSync(tag = tag);
