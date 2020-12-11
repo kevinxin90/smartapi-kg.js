@@ -3,7 +3,7 @@ class InvalidSmartAPIIDError extends Error {
         super(...params);
 
         if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, InvalidQueryGraphError);
+            Error.captureStackTrace(this, InvalidSmartAPIIDError);
         }
 
         this.name = 'InvalidSmartAPIIDError';
