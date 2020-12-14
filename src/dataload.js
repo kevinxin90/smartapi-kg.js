@@ -1,7 +1,10 @@
 //const fs = require("fs");
 const axios = require('axios');
 const SMARTAPI_URL = require("./config").SMARTAPI_URL;
-const invalidSmartAPIIDError = require("./utils/errors/invalid_smartapi_id_error")
+const invalidSmartAPIIDError = require("./utils/errors/invalid_smartapi_id_error");
+
+const debug = require("debug")("smartapi-kg:load-specs");
+
 /**
  * Load SmartAPI Specifications from the SmartAPI API
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
@@ -44,7 +47,9 @@ exports.loadSpecsSync = (tag = "translator") => {
     const smartapi_specs = require("./specs");
     return smartapi_specs.hits.map(spec => {
         let tags = spec.tags.map(item => item.name);
+        debug(`SmartAPI ${(spec) ? spec.info.title : spec} has the following tags: ${tags}`);
         if (Array.isArray(spec.paths) && tags.includes(tag)) {
+            debug(`This SmartAPI qualifies the tag specification: ${tag}`)
             spec.paths = spec.paths.reduce((obj, path) => {
                 obj[path.path] = path.pathitem;
                 return obj;

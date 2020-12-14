@@ -30,6 +30,7 @@ class MetaKG {
         this.graph = new jsnx.MultiDiGraph();
         let reasoner = {}, api;
         specs.map(spec => {
+            debug(`[info]: Start to parse spec, ${(spec) ? spec.info.title : spec}`);
             try {
                 api = new parser(spec);
                 if (api.metadata.operations.length === 0 && includeReasoner === true && api.metadata.tags.includes("reasoner") && api.metadata.paths.includes("/predicates")) {
@@ -89,8 +90,10 @@ class MetaKG {
         debug(`Constructing meta-kg by querying local smartapi spec, tag -> ${tag}`);
         let specs;
         if (tag !== "translator") {
+            debug(`Start to load local SmartAPI specs with tag ${tag}`);
             specs = dataload.loadSpecsSync(tag = tag);
         } else {
+            debug(`Start to load local SmartAPI specs with tag ${tag}`);
             specs = dataload.loadSpecsSync();
         }
         this.populateOpsFromSpecs(specs);
