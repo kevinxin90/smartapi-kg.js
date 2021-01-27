@@ -1,4 +1,4 @@
-class InvalidSmartAPIIDError extends Error {
+export class InvalidSmartAPIIDError extends Error {
     constructor(message = "The SmartAPI ID you provided is invalid.", ...params) {
         super(...params);
 
@@ -11,5 +11,3 @@ class InvalidSmartAPIIDError extends Error {
         this.statusCode = 400;
     }
 }
-
-module.exports = InvalidSmartAPIIDError;

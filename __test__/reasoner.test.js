@@ -1,4 +1,4 @@
-const reasoner = require('../src/reasoner');
+const reasoner = require('../built/reasoner');
 
 
 describe('test parsePredicatesEndpoint', () => {

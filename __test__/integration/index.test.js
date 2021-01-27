@@ -1,4 +1,4 @@
-const kg = require("../../src/index");
+const kg = require("../../built/index");
 
 
 describe('Test constructMetaKG from remote', () => {

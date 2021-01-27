@@ -1,4 +1,4 @@
-const dataload = require("../../src/dataload");
+const dataload = require("../../built/dataload");
 
 
 describe('Test Load specs from remote', () => {
