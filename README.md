@@ -1,5 +1,9 @@
 <h1 align="center">Welcome to @biothings-explorer/smartapi-kg 👋</h1>
 <p>
+  <a href="https://travis-ci.com/github/kevinxin90/smartapi-kg.js" target="_blank">
+    <img alt="Build" src="https://travis-ci.com/kevinxin90/smartapi-kg.js.svg?branch=master">
+  </a>
+  <a href='https://coveralls.io/github/kevinxin90/smartapi-kg.js?branch=master'><img src='https://coveralls.io/repos/github/kevinxin90/smartapi-kg.js/badge.svg?branch=master' alt='Coverage Status' /></a>
   <a href="https://www.npmjs.com/package/@biothings-explorer/smartapi-kg" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/@biothings-explorer/smartapi-kg.svg">
   </a>
@@ -45,8 +49,14 @@ npm i @biothings-explorer/smartapi-kg
     ```javascript
     await meta_kg.constructMetaKG(includeReasoner = true);
     ```
+  
+  - Option 3: Load Meta-KG from SmartAPI specs with tags equal to biothings
 
-  - Option 3: Load Meta-KG from a local copy of SmartAPI specs included in the package
+    ```javascript
+    await meta_kg.constructMetaKG(includeReasoner = false, tag="biothings");
+    ```
+
+  - Option 4: Load Meta-KG from a local copy of SmartAPI specs included in the package
 
     ```javascript
     //Alternatively, you can also sync load SmartAPI specs from a local copy within the package

@@ -1,0 +1,20 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <script type="text/javascript" src="https://unpkg.com/@biothings-explorer/smartapi-kg@1.5.0/bundle.js"></script>
+    <script>
+        const getkg = async () => {
+            var smartapi_kg = new module();
+            await smartapi_kg.constructMetaKG(includeReasoner = true);
+            console.log(smartapi_kg.ops);
+        }
+        getkg();
+
+    </script>
+</body>
+
+</html>
