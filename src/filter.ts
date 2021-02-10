@@ -8,18 +8,19 @@ import { SmartAPIOperation, FilterCriteria, ObjectWithValueAsSet } from './utils
  * @param {Object} criteria - the filter criteria
  */
 const filter = (ops: SmartAPIOperation[], criteria: FilterCriteria) => {
-    let all_values = {} as ObjectWithValueAsSet, filters = {} as ObjectWithValueAsSet;
+    const allValues = {} as ObjectWithValueAsSet;
+    const filters = {} as ObjectWithValueAsSet;
 
-    FILTER_FIELDS.map(field => all_values[field] = new Set())
+    FILTER_FIELDS.map(field => allValues[field] = new Set())
     ops.map(item => {
         FILTER_FIELDS.map(field => {
-            all_values[field].add(item.association[field])
+            allValues[field].add(item.association[field])
         });
     });
 
     FILTER_FIELDS.map(field => {
         if (!(field in criteria) || criteria[field] === undefined) {
-            filters[field] = all_values[field]
+            filters[field] = allValues[field]
         } else {
             if (!Array.isArray(criteria[field])) {
                 criteria[field] = [criteria[field]];
