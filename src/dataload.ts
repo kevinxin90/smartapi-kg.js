@@ -1,6 +1,10 @@
 //const fs = require("fs");
 import axios from 'axios';
 const SMARTAPI_URL = require("./config").SMARTAPI_URL;
+const fs = require("fs");
+var path = require('path');
+const util = require('util');
+const readFile = util.promisify(fs.readFile);
 import { InvalidSmartAPIIDError } from "./utils/errors/invalid_smartapi_id_error";
 import { SmartAPISpec, SmartAPIQueryResponse } from "./utils/types";
 const debug = require("debug")("smartapi-kg:load-specs");
@@ -44,8 +48,8 @@ exports.loadSpecsFromRemote = async (smartapiID: string | undefined = undefined)
  * @param {string} tag - The SmartAPI tag to be filtered on
  * @return {Array} An array of objects, with each object representing one SmartAPI Specification
  */
-exports.loadSpecsSync = (tag: string = "translator"): object => {
-    const smartapi_specs = require("./specs");
+exports.loadSpecsSync = async (tag: string = "translator"): object => {
+    const smartapi_specs = await readFile(path.resolve(__dirname, './data/smartapi_specs.json'));
     return smartapi_specs.hits.map(spec => {
         let tags = spec.tags.map(item => item.name);
         debug(`SmartAPI ${(spec) ? spec.info.title : spec} has the following tags: ${tags}`);
