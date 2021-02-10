@@ -6,7 +6,7 @@ const debug = Debug("smartapi-kg:reasoner");
 
 
 const parsePredicatesEndpoint = (doc: ReasonerPredicatesResponse) => {
-    let ops: SmartAPIOperation[] = [];
+    const ops: SmartAPIOperation[] = [];
     if (Object.keys(doc).length > 0) {
         Object.keys(doc).map(sbj => {
             Object.keys(doc[sbj]).map(obj => {
@@ -40,12 +40,12 @@ const constructQueryUrl = (serverUrl: string): string => {
 }
 
 const fetchReasonerOps = async (metadata: object): Promise<object[]> => {
-    let ops: SmartAPIOperation[] = [];
+    const ops: SmartAPIOperation[] = [];
     await Promise.allSettled(Object.keys(metadata).map(apiName => {
         debug(`Start to fetch metadata for TRAPI ${apiName} with server url ${metadata[apiName].metadata.url}`);
         return axios.get(constructQueryUrl(metadata[apiName].metadata.url))
             .then(res => {
-                let result = parsePredicatesEndpoint(res.data);
+                const result = parsePredicatesEndpoint(res.data);
                 result.map(op => {
                     op.tags = ['translator', 'reasoner'];
                     op.association.api_name = apiName;

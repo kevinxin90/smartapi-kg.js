@@ -12,7 +12,7 @@ class MetaKG {
      * constructor to build meta knowledge graph from SmartAPI Specifications
      */
     constructor() {
-        //store all meta-kg operations
+        // store all meta-kg operations
         this.ops = [];
     }
 
@@ -27,7 +27,8 @@ class MetaKG {
      */
     private _populateOpsFromSpecs(specs: SmartAPISpec[], includeReasoner: boolean = false) {
         this.ops = [];
-        let reasoner: object = {}, api: any;
+        const reasoner: object = {};
+        let api: any;
         specs.map(spec => {
             debug(`[info]: Start to parse spec, ${(spec) ? spec.info.title : spec}`);
             try {
@@ -52,14 +53,14 @@ class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {boolean} includeReasoner - specify whether to include reasonerStdAPI into meta-kg
      */
-    async constructMetaKG(includeReasoner: boolean = false, tag: string = "translator", smartapiID: string | undefined = undefined, team: string | undefined = undefined): Promise<void> {
+    async constructMetaKG(includeReasoner: boolean = false, tag: string = "translator", smartapiID?: string, team?: string): Promise<void> {
         debug(`[info]: Constructing meta-kg by querying SmartAPI alive, includeReasoner -> ${includeReasoner}, tag -> ${tag}, smartapiID -> ${smartapiID}, team -> ${team}`);
         includeReasoner = includeReasoner || false;
-        let specs = await dataload.loadSpecsFromRemote(smartapiID);
-        let reasoner = this._populateOpsFromSpecs(specs, includeReasoner = includeReasoner);
+        const specs = await dataload.loadSpecsFromRemote(smartapiID);
+        const reasoner = this._populateOpsFromSpecs(specs, includeReasoner = includeReasoner);
         if (includeReasoner === true && Object.keys(reasoner).length > 0) {
             debug("[info]: Start ot fetch TRAPI operations from /predicates endpoints.");
-            let reasonerOps = await reasonerParser.fetchReasonerOps(reasoner);
+            const reasonerOps = await reasonerParser.fetchReasonerOps(reasoner);
             debug(`[info]: Successfully fetched ${reasonerOps.length} kgx operations from TRAPI /predicates endpoints.`);
             this.ops = [...this.ops, ...reasonerOps];
             debug(`[info]: Total kgx operations is ${this.ops.length}`);
