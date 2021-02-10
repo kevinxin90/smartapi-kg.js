@@ -81,15 +81,15 @@ class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {string} tag - the SmartAPI tag to be filtered on
      */
-    constructMetaKGSync(tag: string = "translator"): void {
+    async constructMetaKGSync(tag: string = "translator"): void {
         debug(`Constructing meta-kg by querying local smartapi spec, tag -> ${tag}`);
         let specs: SmartAPISpec[];
         if (tag !== "translator") {
             debug(`Start to load local SmartAPI specs with tag ${tag}`);
-            specs = dataload.loadSpecsSync(tag = tag);
+            specs = await dataload.loadSpecsSync(tag = tag);
         } else {
             debug(`Start to load local SmartAPI specs with tag ${tag}`);
-            specs = dataload.loadSpecsSync();
+            specs = await dataload.loadSpecsSync();
         }
         this._populateOpsFromSpecs(specs);
     }
