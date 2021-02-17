@@ -1,4 +1,4 @@
-const parser = require("smartapi-parser");
+import API from 'smartapi-parser';
 const dataload = require("./dataload");
 const ft = require("./filter");
 const reasonerParser = require("./reasoner");
@@ -28,11 +28,10 @@ class MetaKG {
     private _populateOpsFromSpecs(specs: SmartAPISpec[], includeReasoner: boolean = false) {
         this.ops = [];
         const reasoner: object = {};
-        let api: any;
         specs.map(spec => {
             debug(`[info]: Start to parse spec, ${(spec) ? spec.info.title : spec}`);
             try {
-                api = new parser(spec);
+                let api = new API(spec);
                 if (api.metadata.operations.length === 0 && includeReasoner === true && api.metadata.tags.includes("reasoner") && api.metadata.paths.includes("/predicates")) {
                     reasoner[api.metadata.title] = {
                         metadata: api.metadata

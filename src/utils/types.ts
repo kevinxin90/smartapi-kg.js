@@ -13,6 +13,7 @@ interface Association {
     api_name?: string;
     smartapi?: SmartAPIInfo;
     "x-translator"?: any;
+    [propName: string]: any;
 }
 
 export interface SmartAPIOperation {
@@ -33,13 +34,24 @@ export interface FilterCriteria {
     predicate?: undefined | string | string[];
     api_name?: undefined | string | string[];
     source?: undefined | string | string[];
+    [propName: string]: undefined | string | string[];
+}
+
+interface XTranslatorObject {
+    component: string;
+    team: string[];
 }
 
 interface SmartAPISpecInfo {
-    title?: string;
+    title: string;
+    version: string;
+    description?: string;
+    'x-translator'?: XTranslatorObject;
+    [propName: string]: any;
 }
 
 export interface SmartAPISpec {
+    openapi: string;
     info?: SmartAPISpecInfo;
     paths?: any;
     [propName: string]: any;
