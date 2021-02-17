@@ -34,11 +34,13 @@ exports.loadSpecsFromRemote = async (smartapiID = undefined) => {
         }
     }
     return response.map(spec => {
-        if (spec.paths) {
+        if (Array.isArray(spec.paths)) {
             spec.paths = spec.paths.reduce((obj, path) => {
                 obj[path.path] = path.pathitem;
                 return obj;
             }, {});
+            return spec;
+        } else {
             return spec;
         }
     });
