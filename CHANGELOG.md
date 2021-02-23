@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.11](https://github.com/kevinxin90/smartapi-kg.js/compare/v2.2.10...v2.2.11) (2021-02-23)
+
 ### [2.2.10](https://github.com/kevinxin90/smartapi-kg.js/compare/v2.2.6...v2.2.10) (2021-02-23)
 
 
