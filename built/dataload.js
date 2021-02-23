@@ -45,13 +45,8 @@ exports.loadSpecsFromRemote = async (smartapiID = undefined) => {
         }
     });
 };
-/**
- * Load SmartAPI Specifications from a local copy of SmartAPI registry
- * @param {string} tag - The SmartAPI tag to be filtered on
- * @return {Array} An array of objects, with each object representing one SmartAPI Specification
- */
-exports.loadSpecsSync = (tag = "translator") => {
-    const smartapi_specs = require("./specs");
+
+const processSpecs = (smartapi_specs, tag) => {
     return smartapi_specs.hits.map(spec => {
         let tags = spec.tags.map(item => item.name);
         debug(`SmartAPI ${(spec) ? spec.info.title : spec} has the following tags: ${tags}`);
@@ -64,4 +59,27 @@ exports.loadSpecsSync = (tag = "translator") => {
         }
         return spec;
     });
+}
+/**
+ * Load SmartAPI Specifications from a local copy of SmartAPI registry
+ * @param {string} tag - The SmartAPI tag to be filtered on
+ * @return {Array} An array of objects, with each object representing one SmartAPI Specification
+ */
+exports.loadSpecsSync = (tag = "translator") => {
+    const smartapi_specs = require("./specs");
+    return processSpecs(smartapi_specs, tag);
 };
+
+exports.loadsSpecsFromUser = (smartapi_specs) => {
+    return smartapi_specs.hits.map(spec => {
+        if (Array.isArray(spec.paths)) {
+            spec.paths = spec.paths.reduce((obj, path) => {
+                obj[path.path] = path.pathitem;
+                return obj;
+            }, {});
+            return spec;
+        } else {
+            return spec;
+        }
+    });
+}

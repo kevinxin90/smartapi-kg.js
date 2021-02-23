@@ -29,7 +29,6 @@ class MetaKG {
         this.ops = [];
         let reasoner = {}, api;
         specs.map(spec => {
-            debug(`[info]: Start to parse spec, ${(spec) ? spec.info.title : spec}`);
             try {
                 api = new parser(spec);
                 if (api.metadata.operations.length === 0 && includeReasoner === true && api.metadata.tags.includes("reasoner") && api.metadata.paths.includes("/predicates")) {
@@ -56,6 +55,7 @@ class MetaKG {
         debug(`[info]: Constructing meta-kg by querying SmartAPI alive, includeReasoner -> ${includeReasoner}, tag -> ${tag}, smartapiID -> ${smartapiID}, team -> ${team}`);
         includeReasoner = includeReasoner || false;
         let specs = await dataload.loadSpecsFromRemote(smartapiID);
+        debug(`[info]: Specs successfully loaded from remote SmartAPI API.`)
         let reasoner = this._populateOpsFromSpecs(specs, includeReasoner = includeReasoner);
         if (includeReasoner === true && Object.keys(reasoner).length > 0) {
             debug("[info]: Start ot fetch TRAPI operations from /predicates endpoints.");
@@ -91,6 +91,16 @@ class MetaKG {
             specs = dataload.loadSpecsSync();
         }
         this._populateOpsFromSpecs(specs);
+    }
+
+    /**
+     * Construct API Meta Knowledge Graph based on SmartAPI Specifications provided by user.
+     */
+    constructMetaKGFromUserProvidedSpecs(specs) {
+        debug(`Constructing meta-kg by querying user provided specs`);
+        debug(`Number of specs got from user is: ${specs.hits.length}`);
+        let processed_specs = dataload.loadsSpecsFromUser(specs);
+        this._populateOpsFromSpecs(processed_specs);
     }
     /**
      * Filter the Meta-KG operations based on specific criteria
