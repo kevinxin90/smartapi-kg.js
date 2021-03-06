@@ -49,7 +49,7 @@ describe('Test constructMetaKG from remote', () => {
         await meta_kg.constructMetaKG(true, { smartAPIID: "912372f46127b79fb387cd2397203709" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
-        expect(meta_kg.ops[0].association.input_type).toEqual("biolink:ChemicalSubstance")
+        expect(meta_kg.ops[0].association.input_type).toEqual("ChemicalSubstance")
     });
 
     test("Test construct meta-kg including reasoner tags with no restrictions", async () => {
