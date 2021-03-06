@@ -1,4 +1,5 @@
 import { MetaKG } from '../../src/index';
+import FailToLoadSpecError from '../../src/exceptions/fail_to_load_spec'
 import path from "path";
 
 
@@ -9,6 +10,14 @@ describe('Test constructMetaKG from remote', () => {
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
         expect(meta_kg.ops[0].association["x-translator"].team).toContain("Text Mining Provider");
+    });
+
+    test("Test filter function", async () => {
+        const meta_kg = new MetaKG();
+        await meta_kg.constructMetaKG(false, { teamName: "Text Mining Provider" });
+        const res = meta_kg.filter({ input_type: "Disease" });
+        expect(res.length).toBeGreaterThan(0);
+        expect(res.filter(op => op.association.input_type === "Disease").length).toEqual(res.length);
     });
 
     test("Test construct meta-kg with tag equal to biothings", async () => {
@@ -35,6 +44,11 @@ describe('Test constructMetaKG from remote', () => {
         expect(meta_kg.ops[0].association.api_name).toEqual("Clinical Risk KP API");
     });
 
+    test("Test construct meta-kg with invalid smartapi id should throw an error", async () => {
+        const meta_kg = new MetaKG();
+        await expect(meta_kg.constructMetaKG(false, { smartAPIID: "invalid" })).rejects.toThrowError(new FailToLoadSpecError("Query to https://smart-api.info/api/metadata/invalid failed with status code 404"));;
+    });
+
     test("Test construct meta-kg with component name", async () => {
         const meta_kg = new MetaKG();
         await meta_kg.constructMetaKG(false, { component: "KP" });
@@ -58,6 +72,8 @@ describe('Test constructMetaKG from remote', () => {
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
     });
+
+
 });
 
 describe('Test constructMetaKG from local stored specs', () => {

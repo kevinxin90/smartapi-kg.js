@@ -16,13 +16,15 @@ export default abstract class BaseAsyncLoader extends BaseLoader {
 
     protected async fetch(): Promise<SmartAPIQueryResult | SmartAPISpec> {
         try {
-            const res = await axios.get(this._url);
-            if (res.status === 200) {
-                return res.data;
-            } else {
-                debug(`Query to ${this._url} failed with status code ${res.status}`)
-                throw new FailToLoadSpecError(`Query to ${this._url} failed with status code ${res.status}`);
-            }
+            const res = await axios.get(this._url)
+                .then(res => res.data)
+                .catch(error => {
+                    if (error.response) {
+                        debug(`Query to ${this._url} failed with status code ${error.response.status}`)
+                        throw new FailToLoadSpecError(`Query to ${this._url} failed with status code ${error.response.status}`);
+                    }
+                });
+            return res;
         } catch (e) {
             if (e instanceof FailToLoadSpecError) {
                 throw e;
