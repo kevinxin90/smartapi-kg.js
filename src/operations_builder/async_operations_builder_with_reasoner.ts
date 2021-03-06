@@ -59,7 +59,7 @@ export default class AsyncOperationsBuilderWithReasoner extends AsyncOperationsB
     }
 
     private async getOpsFromPredicatesEndpoint(metadata: ParsedAPIMetadataObject): Promise<SmartAPIKGOperationObject[]> {
-        return axios.get(this.constructQueryUrl(metadata.url))
+        return axios.get(this.constructQueryUrl(metadata.url), { timeout: 5000 })
             .then(res => {
                 if (res.status === 200) {
                     const data = res.data as ReasonerPredicatesResponse;
