@@ -1,7 +1,6 @@
 import { MetaKG } from '../../src/index';
 import path from "path";
 
-jest.setTimeout(30000)
 
 describe('Test constructMetaKG from remote', () => {
     test("Test construct meta-kg based on team name", async () => {
