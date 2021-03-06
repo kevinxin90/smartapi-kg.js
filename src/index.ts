@@ -46,7 +46,7 @@ export class MetaKG {
      * Construct API Meta Knowledge Graph based on SmartAPI Specifications.
      * @param {string} tag - the SmartAPI tag to be filtered on
      */
-    constructMetaKGSync(options: BuilderOptions): SmartAPIKGOperationObject[] {
+    constructMetaKGSync(options: BuilderOptions = {}): SmartAPIKGOperationObject[] {
         const builder = new SyncOperationsBuilder(options, this._file_path);
         this._ops = builder.build();
         return this._ops;
