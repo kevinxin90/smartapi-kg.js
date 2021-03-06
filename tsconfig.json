@@ -5,11 +5,16 @@
         "target": "es2020",
         "module": "commonjs",
         "rootDir": "./src",
+        "declaration": true,
         "esModuleInterop": true,
         "strict": false,
         "noImplicitAny": true
     },
     "include": [
         "./src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "__tests__/"
     ]
 }
