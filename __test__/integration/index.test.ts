@@ -4,6 +4,13 @@ import path from "path";
 
 
 describe('Test constructMetaKG from remote', () => {
+
+    test("Test construct meta-kg based without options", async () => {
+        const meta_kg = new MetaKG();
+        await meta_kg.constructMetaKG(false, {});
+        expect(meta_kg.ops).toBeInstanceOf(Array);
+        expect(meta_kg.ops.filter(op => op.association.api_name === "MyGene.info API").length).toBeGreaterThan(0);
+    });
     test("Test construct meta-kg based on team name", async () => {
         const meta_kg = new MetaKG();
         await meta_kg.constructMetaKG(false, { teamName: "Text Mining Provider" });
@@ -98,6 +105,14 @@ describe('Test constructMetaKG from local stored specs', () => {
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
         expect(meta_kg.ops[0].tags).toContain("biothings");
+    });
+
+    test("Test construct meta-kg with team equal to Text Mining Provider", () => {
+        const meta_kg = new MetaKG();
+        meta_kg.constructMetaKGSync({ teamName: "Text Mining Provider" });
+        expect(meta_kg.ops).toBeInstanceOf(Array);
+        expect(meta_kg.ops.length).toBeGreaterThan(0);
+        expect(meta_kg.ops[0].association["x-translator"].team).toContain("Text Mining Provider");
     });
 
     test("Test construct meta-kg with smartapi id", async () => {
