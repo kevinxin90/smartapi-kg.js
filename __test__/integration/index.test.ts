@@ -4,7 +4,12 @@ import path from "path";
 
 
 describe('Test constructMetaKG from remote', () => {
-
+    test("Test construct meta-kg based with default parameters", async () => {
+        const meta_kg = new MetaKG();
+        await meta_kg.constructMetaKG();
+        expect(meta_kg.ops).toBeInstanceOf(Array);
+        expect(meta_kg.ops.filter(op => op.association.api_name === "MyGene.info API").length).toBeGreaterThan(0);
+    });
     test("Test construct meta-kg based without options", async () => {
         const meta_kg = new MetaKG();
         await meta_kg.constructMetaKG(false, {});
