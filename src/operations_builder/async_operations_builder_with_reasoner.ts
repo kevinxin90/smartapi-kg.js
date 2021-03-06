@@ -32,6 +32,16 @@ export default class AsyncOperationsBuilderWithReasoner extends AsyncOperationsB
         return serverUrl + "/predicates";
     }
 
+    private removeBioLinkPrefix(input: string): string {
+        if (!(typeof input === "string")) {
+            return undefined;
+        }
+        if (input.startsWith("biolink:")) {
+            return input.slice(8);
+        }
+        return input;
+    }
+
     private parsePredicateEndpoint(response: ReasonerPredicatesResponse, metadata: ParsedAPIMetadataObject): SmartAPIKGOperationObject[] {
         const ops = [] as SmartAPIKGOperationObject[];
         Object.keys(response).map(sbj => {
@@ -41,9 +51,9 @@ export default class AsyncOperationsBuilderWithReasoner extends AsyncOperationsB
                         ops.push(
                             {
                                 association: {
-                                    input_type: sbj,
-                                    output_type: obj,
-                                    predicate: pred,
+                                    input_type: this.removeBioLinkPrefix(sbj),
+                                    output_type: this.removeBioLinkPrefix(obj),
+                                    predicate: this.removeBioLinkPrefix(pred),
                                     api_name: metadata.title,
                                     smartapi: metadata.smartapi,
                                     "x-translator": metadata["x-translator"]
