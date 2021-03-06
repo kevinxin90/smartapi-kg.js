@@ -1,0 +1,89 @@
+import { ft } from '../../src/filter';
+import { SmartAPIKGOperationObject } from '../../src/parser/types'
+
+describe("Test filter function", () => {
+    const ops: SmartAPIKGOperationObject[] = [
+        {
+            association: {
+                input_type: "Gene",
+                input_id: "NCBIGENE",
+                output_type: "Disease",
+                output_id: "MONDO",
+                predicate: "PRED1",
+                source: "SOURCE1"
+            }
+        },
+        {
+            association: {
+                input_type: "SequenceVariant",
+                input_id: "NCBIGENE",
+                output_type: "ChemicalSubstance",
+                output_id: "CHEBI",
+                predicate: "PRED2",
+                source: "SOURCE2",
+                api_name: "API1"
+            }
+        },
+        {
+            association: {
+                input_type: "Gene",
+                input_id: "NCBIGENE",
+                output_type: "ChemicalSubstance",
+                output_id: "CHEBI",
+                predicate: "PRED3",
+                source: "SOURCE3"
+            }
+        },
+        {
+            association: {
+                input_type: "Gene",
+                input_id: "NCBIGENE",
+                output_type: "Disease",
+                output_id: "MONDO",
+                predicate: "PRED2",
+                source: "SOURCE3",
+                api_name: "API1"
+            }
+        },
+    ]
+    test("Return only ops with input type gene when specifying input type as gene in string", () => {
+        const res = ft(ops, { input_type: "Gene" });
+        expect(res).toHaveLength(ops.filter(op => op.association.input_type === "Gene").length);
+        expect(res[0].association.source).toEqual("SOURCE1");
+    })
+
+    test("Return only ops with input type gene when specifying input type as gene in array", () => {
+        const res = ft(ops, { input_type: ["Gene"] });
+        expect(res).toHaveLength(ops.filter(op => op.association.input_type === "Gene").length);
+        expect(res[0].association.source).toEqual("SOURCE1");
+    })
+
+    test("Return only ops with output type gene when specifying output type as chemicalsubstance in string", () => {
+        const res = ft(ops, { output_type: "ChemicalSubstance" });
+        expect(res).toHaveLength(ops.filter(op => op.association.output_type === "ChemicalSubstance").length);
+        expect(res[0].association.source).toEqual("SOURCE2");
+    })
+
+    test("Return only ops with predicate PRED2 when specifying predicate as PRED2 in string", () => {
+        const res = ft(ops, { predicate: "PRED2" });
+        expect(res).toHaveLength(ops.filter(op => op.association.predicate === "PRED2").length);
+        expect(res[0].association.source).toEqual("SOURCE2");
+    })
+
+    test("Return only ops with input type Gene and output type Disease when specifying input as Gene and output as Disease", () => {
+        const res = ft(ops, { input_type: 'Gene', output_type: "Disease" });
+        expect(res).toHaveLength(ops.filter(op => op.association.input_type === 'Gene' && op.association.output_type === "Disease").length);
+        expect(res[0].association.source).toEqual("SOURCE1");
+    })
+
+    test("Return only ops with input type Gene and output type Disease/ChemicalSubstance when specifying input as Gene and output as Disease/ChemicalSubstance", () => {
+        const res = ft(ops, { input_type: 'Gene', output_type: ["Disease", "ChemicalSubstance"] });
+        expect(res).toHaveLength(ops.filter(op => op.association.input_type === 'Gene' && ["Disease", "ChemicalSubstance"].includes(op.association.output_type)).length);
+        expect(res[0].association.source).toEqual("SOURCE1");
+    })
+
+    test("Return empty array when couldn't find a match", () => {
+        const res = ft(ops, { input_type: 'Gene1', output_type: ["Disease", "ChemicalSubstance"] });
+        expect(res).toHaveLength(0);
+    })
+})
