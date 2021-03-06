@@ -104,6 +104,13 @@ describe('Test constructMetaKG from local stored specs', () => {
         expect(meta_kg.ops.length).toBeGreaterThan(0);
     });
 
+    test("Test construct meta-kg with default parameters", () => {
+        let meta_kg = new MetaKG();
+        meta_kg.constructMetaKGSync();
+        expect(meta_kg.ops).toBeInstanceOf(Array);
+        expect(meta_kg.ops.length).toBeGreaterThan(0);
+    });
+
     test("Test construct meta-kg with tag equal to biothings", () => {
         const meta_kg = new MetaKG();
         meta_kg.constructMetaKGSync({ tag: "biothings" });
