@@ -106,3 +106,5 @@ dist
 
 kevin.js
 .DS_Store
+
+built/
