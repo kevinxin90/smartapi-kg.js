@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "test": "jest",
+    "test-cov": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "release": "standard-version",
     "lint": "tslint -p tsconfig.json",
