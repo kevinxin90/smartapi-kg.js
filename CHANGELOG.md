@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.1.0...v3.1.1) (2021-03-11)
+
+
+### Bug Fixes
+
+* :bug: update tsconfig to include local copy of SmartAPI specs when compiling ([684d308](https://github.com/kevinxin90/smartapi-kg.js/commit/684d3082d3528b228792b885641582b65069130b))
+
 ## [3.1.0](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.0.0...v3.1.0) (2021-03-11)
 
 ## [3.0.0](https://github.com/kevinxin90/smartapi-kg.js/compare/v2.2.12...v3.0.0) (2021-03-06)
