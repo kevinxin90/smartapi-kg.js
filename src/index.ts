@@ -7,7 +7,7 @@ import path from "path";
 import Debug from "debug";
 const debug = Debug("smartapi-kg:MetaKG");
 
-export class MetaKG {
+export default class MetaKG {
   private _ops: SmartAPIKGOperationObject[];
   private _file_path: string;
   /**
@@ -21,7 +21,12 @@ export class MetaKG {
 
   set path(file_path: string) {
     if (typeof file_path === "undefined") {
-      this._file_path = path.resolve(__dirname, "./data/smartapi_specs.json");
+      try {
+        this._file_path = path.resolve(__dirname, "./data/smartapi_specs.json");
+      } catch(error) {
+        console.warn("Could not resolve file path. (ignore this if using bundle)\n", error);
+        this._file_path = '';
+      }
     } else {
       this._file_path = file_path;
     }
