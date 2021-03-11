@@ -7,7 +7,7 @@ import path from "path";
 import Debug from "debug";
 const debug = Debug("smartapi-kg:MetaKG");
 
-export class MetaKG {
+export default class MetaKG {
   private _ops: SmartAPIKGOperationObject[];
   private _file_path: string;
   /**

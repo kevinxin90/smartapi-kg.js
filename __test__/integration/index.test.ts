@@ -1,4 +1,4 @@
-import { MetaKG } from '../../src/index';
+import MetaKG from '../../src/index';
 import FailToLoadSpecError from '../../src/exceptions/fail_to_load_spec'
 import path from "path";
 
