@@ -49,11 +49,11 @@ describe('Test constructMetaKG from remote', () => {
 
     test("Test construct meta-kg with smartapi id", async () => {
         const meta_kg = new MetaKG();
-        await meta_kg.constructMetaKG(false, { smartAPIID: "5076f09382b38d56a77e376416b634ca" });
+        await meta_kg.constructMetaKG(false, { smartAPIID: "671b45c0301c8624abbd26ae78449ca2" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
-        expect(meta_kg.ops[0].association.smartapi.id).toEqual("5076f09382b38d56a77e376416b634ca");
-        expect(meta_kg.ops[0].association.api_name).toEqual("Clinical Risk KP API");
+        expect(meta_kg.ops[0].association.smartapi.id).toEqual("671b45c0301c8624abbd26ae78449ca2");
+        expect(meta_kg.ops[0].association.api_name).toEqual("MyDisease.info API");
     });
 
     test("Test construct meta-kg with invalid smartapi id should throw an error", async () => {
@@ -129,11 +129,11 @@ describe('Test constructMetaKG from local stored specs', () => {
 
     test("Test construct meta-kg with smartapi id", async () => {
         const meta_kg = new MetaKG();
-        meta_kg.constructMetaKGSync({ smartAPIID: "5076f09382b38d56a77e376416b634ca" });
+        meta_kg.constructMetaKGSync({ smartAPIID: "671b45c0301c8624abbd26ae78449ca2" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
-        expect(meta_kg.ops[0].association.smartapi.id).toEqual("5076f09382b38d56a77e376416b634ca");
-        expect(meta_kg.ops[0].association.api_name).toEqual("Clinical Risk KP API");
+        expect(meta_kg.ops[0].association.smartapi.id).toEqual("671b45c0301c8624abbd26ae78449ca2");
+        expect(meta_kg.ops[0].association.api_name).toEqual("MyDisease.info API");
     });
 
     test("Test construct meta-kg with component name", async () => {
