@@ -32,7 +32,7 @@ npm i @biothings-explorer/smartapi-kg
     ```javascript
     const kg = require("@biothings-explorer/smartapi-kg")
     //initiate a new knowledge graph class
-    let meta_kg = new kg.MetaKG()
+    let meta_kg = new kg.default()
     ```
 
 - Load the Meta Knowledge Graph (meta-kg)
