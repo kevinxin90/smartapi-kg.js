@@ -21,12 +21,7 @@ export default class MetaKG {
 
   set path(file_path: string) {
     if (typeof file_path === "undefined") {
-      try {
-        this._file_path = path.resolve(__dirname, "./data/smartapi_specs.json");
-      } catch(error) {
-        console.warn("Could not resolve file path. (ignore this if using bundle)\n", error);
-        this._file_path = '';
-      }
+      this._file_path = path.resolve(__dirname, "./data/smartapi_specs.json");
     } else {
       this._file_path = file_path;
     }

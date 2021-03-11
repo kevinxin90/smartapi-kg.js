@@ -1,4 +1,3 @@
-
 var path = require('path');
 var fs = require('fs');
 var webpack = require('webpack');
@@ -17,7 +16,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     fallback: {
       fs: false,
-      path: false,
+      path: require.resolve('path-browserify')
     }
   },
   module: {
