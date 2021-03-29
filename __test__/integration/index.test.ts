@@ -75,7 +75,13 @@ describe('Test constructMetaKG from remote', () => {
         await meta_kg.constructMetaKG(true, { smartAPIID: "912372f46127b79fb387cd2397203709" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
-        expect(meta_kg.ops[0].association.input_type).toEqual("ChemicalSubstance")
+        expect(meta_kg.ops[0].association.input_type).toEqual("ChemicalSubstance");
+        const reasoner_ops = meta_kg.ops.filter(op => 'bte-trapi' in op.tags);
+        reasoner_ops.map(op => {
+            expect(op.query_operation.path).toEqual('/query');
+            expect(op.query_operation.method).toEqual('post');
+        })
+
     });
 
     test("Test construct meta-kg including reasoner tags with no restrictions", async () => {
