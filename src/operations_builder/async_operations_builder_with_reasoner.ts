@@ -21,14 +21,14 @@ export default class AsyncOperationsBuilderWithReasoner extends AsyncOperationsB
         const metadata = parser.metadata;
         if (
           metadata.paths.includes("/predicates") &&
+          metadata.paths.includes("/query") &&
           !(typeof metadata["x-translator"].team === undefined)
         ) {
           trapi.push(metadata);
         }
       } catch (err) {
         debug(
-          `[error]: Unable to parse spec, ${
-            spec ? spec.info.title : spec
+          `[error]: Unable to parse spec, ${spec ? spec.info.title : spec
           }. Error message is ${err.toString()}`
         );
       }
@@ -71,7 +71,18 @@ export default class AsyncOperationsBuilderWithReasoner extends AsyncOperationsB
                 smartapi: metadata.smartapi,
                 "x-translator": metadata["x-translator"],
               },
-              tags: metadata.tags,
+              tags: [...metadata.tags, ...['bte-trapi']],
+              query_operation: {
+                path: '/query',
+                method: 'post',
+                server: metadata.url,
+                path_params: undefined,
+                params: undefined,
+                request_body: undefined,
+                supportBatch: true,
+                inputSeparator: ',',
+                tags: [...metadata.tags, ...['bte-trapi']]
+              }
             });
           });
         }
@@ -97,8 +108,7 @@ export default class AsyncOperationsBuilderWithReasoner extends AsyncOperationsB
       })
       .catch((err) => {
         debug(
-          `[error]: Unable to get /predicates for ${
-            metadata.url
+          `[error]: Unable to get /predicates for ${metadata.url
           } due to error ${err.toString()}`
         );
         return [];
