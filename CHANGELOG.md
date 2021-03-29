@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.1.1...v3.2.0) (2021-03-29)
+
+
+### Features
+
+* :sparkles: add query_operations field for TRAPI apis ([6b3cb5a](https://github.com/kevinxin90/smartapi-kg.js/commit/6b3cb5a3104cbbe0107ac4969931b03343f63c19))
+
 ### [3.1.1](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.1.0...v3.1.1) (2021-03-11)
 
 
