@@ -13,7 +13,8 @@
     },
     "include": [
         "./src/**/*",
-        "./src/data/smartapi_specs.json"
+        "./src/data/smartapi_specs.json",
+        "./src/data/predicates.json"
     ],
     "exclude": [
         "node_modules",

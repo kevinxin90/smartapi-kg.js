@@ -98,14 +98,14 @@ describe('Test constructMetaKG from local stored specs', () => {
     test("Test construct meta-kg from local provided file path is successful", () => {
         const file_path = path.resolve(__dirname, '../data/smartapi_multiomics_kp_query.json');
         let meta_kg = new MetaKG(file_path);
-        meta_kg.constructMetaKGSync({});
+        meta_kg.constructMetaKGSync(false, {});
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
     });
 
     test("Test construct meta-kg from default file stored with the package", () => {
         let meta_kg = new MetaKG();
-        meta_kg.constructMetaKGSync({});
+        meta_kg.constructMetaKGSync(false, {});
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
     });
@@ -117,9 +117,17 @@ describe('Test constructMetaKG from local stored specs', () => {
         expect(meta_kg.ops.length).toBeGreaterThan(0);
     });
 
+    test("Test construct meta-kg sync including reasoner", () => {
+        let meta_kg = new MetaKG();
+        meta_kg.constructMetaKGSync(true);
+        expect(meta_kg.ops).toBeInstanceOf(Array);
+        const res = meta_kg.ops.filter(op => !('input_id' in op.association));
+        expect(res.length).toBeGreaterThan(100);
+    });
+
     test("Test construct meta-kg with tag equal to biothings", () => {
         const meta_kg = new MetaKG();
-        meta_kg.constructMetaKGSync({ tag: "biothings" });
+        meta_kg.constructMetaKGSync(false, { tag: "biothings" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
         expect(meta_kg.ops[0].tags).toContain("biothings");
@@ -127,7 +135,7 @@ describe('Test constructMetaKG from local stored specs', () => {
 
     test("Test construct meta-kg with team equal to Text Mining Provider", () => {
         const meta_kg = new MetaKG();
-        meta_kg.constructMetaKGSync({ teamName: "Text Mining Provider" });
+        meta_kg.constructMetaKGSync(false, { teamName: "Text Mining Provider" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
         expect(meta_kg.ops[0].association["x-translator"].team).toContain("Text Mining Provider");
@@ -135,7 +143,7 @@ describe('Test constructMetaKG from local stored specs', () => {
 
     test("Test construct meta-kg with smartapi id", async () => {
         const meta_kg = new MetaKG();
-        meta_kg.constructMetaKGSync({ smartAPIID: "671b45c0301c8624abbd26ae78449ca2" });
+        meta_kg.constructMetaKGSync(false, { smartAPIID: "671b45c0301c8624abbd26ae78449ca2" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
         expect(meta_kg.ops[0].association.smartapi.id).toEqual("671b45c0301c8624abbd26ae78449ca2");
@@ -144,7 +152,7 @@ describe('Test constructMetaKG from local stored specs', () => {
 
     test("Test construct meta-kg with component name", async () => {
         const meta_kg = new MetaKG();
-        meta_kg.constructMetaKGSync({ component: "KP" });
+        meta_kg.constructMetaKGSync(false, { component: "KP" });
         expect(meta_kg.ops).toBeInstanceOf(Array);
         expect(meta_kg.ops.length).toBeGreaterThan(0);
         expect(meta_kg.ops[0].association["x-translator"].component).toEqual("KP");
