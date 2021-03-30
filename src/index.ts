@@ -1,5 +1,5 @@
 import { asyncBuilderFactory } from "./operations_builder/async_builder_factory";
-import SyncOperationsBuilder from "./operations_builder/sync_operations_builder";
+import { syncBuilderFactory } from "./operations_builder/sync_builder_factory"
 import { SmartAPIKGOperationObject } from "./parser/types";
 import { BuilderOptions, FilterCriteria } from "./types";
 import { ft } from "./filter";
@@ -10,13 +10,15 @@ const debug = Debug("smartapi-kg:MetaKG");
 export default class MetaKG {
   private _ops: SmartAPIKGOperationObject[];
   private _file_path: string;
+  private _predicates_path: string;
   /**
    * constructor to build meta knowledge graph from SmartAPI Specifications
    */
-  constructor(path: string = undefined) {
+  constructor(path: string = undefined, predicates_path: string = undefined) {
     // store all meta-kg operations
     this._ops = [];
     this.path = path;
+    this.predicates_path = predicates_path;
   }
 
   set path(file_path: string) {
@@ -24,6 +26,14 @@ export default class MetaKG {
       this._file_path = path.resolve(__dirname, "./data/smartapi_specs.json");
     } else {
       this._file_path = file_path;
+    }
+  }
+
+  set predicates_path(file_path: string) {
+    if (typeof file_path === "undefined") {
+      this._predicates_path = path.resolve(__dirname, "./data/predicates.json");
+    } else {
+      this._predicates_path = file_path;
     }
   }
 
@@ -48,10 +58,10 @@ export default class MetaKG {
    * @param {string} tag - the SmartAPI tag to be filtered on
    */
   constructMetaKGSync(
-    options: BuilderOptions = {}
+    includeReasoner: boolean = false,
+    options: BuilderOptions = {},
   ): SmartAPIKGOperationObject[] {
-    const builder = new SyncOperationsBuilder(options, this._file_path);
-    this._ops = builder.build();
+    this._ops = syncBuilderFactory(options, includeReasoner, this._file_path, this._predicates_path)
     return this._ops;
   }
 

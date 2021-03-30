@@ -1,4 +1,4 @@
-import { SmartAPISpec } from "./parser/types";
+import { SmartAPISpec, SmartAPIRegistryRecordObject } from "./parser/types";
 
 export interface SmartAPIQueryResult {
   hits: SmartAPISpec[];
@@ -11,9 +11,29 @@ export interface BuilderOptions {
   component?: string;
 }
 
+interface PredicatesQueryOperationInterface {
+  path: string;
+  server: string;
+  method: string
+}
+
+interface PredicatesAssociationInterface {
+  api_name: string;
+  smartapi: SmartAPIRegistryRecordObject;
+  "x-translator": any;
+}
+
+export interface PredicatesMetadata {
+  association: PredicatesAssociationInterface;
+  tags: string[];
+  query_operation: PredicatesQueryOperationInterface;
+  predicates: ReasonerPredicatesResponse;
+}
+
 interface ReasonerSubjectAndPredicate {
   [propName: string]: string[];
 }
+
 
 export interface ReasonerPredicatesResponse {
   [propName: string]: ReasonerSubjectAndPredicate;
@@ -31,3 +51,5 @@ export interface FilterCriteria {
 export interface ObjectWithValueAsSet {
   [propName: string]: Set<any>;
 }
+
+
