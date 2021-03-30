@@ -14,7 +14,7 @@ export interface BuilderOptions {
 interface PredicatesQueryOperationInterface {
   path: string;
   server: string;
-  method: string
+  method: string;
 }
 
 interface PredicatesAssociationInterface {
@@ -34,7 +34,6 @@ interface ReasonerSubjectAndPredicate {
   [propName: string]: string[];
 }
 
-
 export interface ReasonerPredicatesResponse {
   [propName: string]: ReasonerSubjectAndPredicate;
 }
@@ -51,5 +50,3 @@ export interface FilterCriteria {
 export interface ObjectWithValueAsSet {
   [propName: string]: Set<any>;
 }
-
-

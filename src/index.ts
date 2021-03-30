@@ -1,5 +1,5 @@
 import { asyncBuilderFactory } from "./operations_builder/async_builder_factory";
-import { syncBuilderFactory } from "./operations_builder/sync_builder_factory"
+import { syncBuilderFactory } from "./operations_builder/sync_builder_factory";
 import { SmartAPIKGOperationObject } from "./parser/types";
 import { BuilderOptions, FilterCriteria } from "./types";
 import { ft } from "./filter";
@@ -59,9 +59,14 @@ export default class MetaKG {
    */
   constructMetaKGSync(
     includeReasoner: boolean = false,
-    options: BuilderOptions = {},
+    options: BuilderOptions = {}
   ): SmartAPIKGOperationObject[] {
-    this._ops = syncBuilderFactory(options, includeReasoner, this._file_path, this._predicates_path)
+    this._ops = syncBuilderFactory(
+      options,
+      includeReasoner,
+      this._file_path,
+      this._predicates_path
+    );
     return this._ops;
   }
 
