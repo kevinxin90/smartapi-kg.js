@@ -1,17 +1,19 @@
 import BaseOperationsBuilder from "./base_operations_builder";
 import { syncLoaderFactory } from "../load/sync_loader_factory";
 import { BuilderOptions } from "../types";
-import fs from 'fs';
-import {
-    SmartAPIKGOperationObject,
-} from "../parser/types";
+import fs from "fs";
+import { SmartAPIKGOperationObject } from "../parser/types";
 import { PredicatesMetadata } from "../types";
 
 export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBuilder {
     private _file_path: string;
     private _predicates_file_path: string;
 
-    constructor(options: BuilderOptions, path: string, predicates_file_path: string) {
+    constructor(
+        options: BuilderOptions,
+        path: string,
+        predicates_file_path: string
+    ) {
         super(options);
         this._file_path = path;
         this._predicates_file_path = predicates_file_path;
@@ -42,9 +44,9 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
                                 predicate: this.removeBioLinkPrefix(pred),
                                 api_name: metadata.association.api_name,
                                 smartapi: metadata.association.smartapi,
-                                "x-translator": metadata.association["x-translator"]
+                                "x-translator": metadata.association["x-translator"],
                             },
-                            tags: metadata.tags,
+                            tags: [...metadata.tags, ...["bte-trapi"]],
                             query_operation: {
                                 path: "/query",
                                 method: "post",
@@ -54,7 +56,7 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
                                 request_body: undefined,
                                 supportBatch: true,
                                 inputSeparator: ",",
-                                tags: metadata.tags,
+                                tags: [...metadata.tags, ...["bte-trapi"]],
                             },
                         });
                     });
@@ -81,9 +83,9 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
         const nonTRAPIOps = this.loadOpsFromSpecs(specs);
         const predicatesMetada = this.fetch();
         let TRAPIOps = [] as SmartAPIKGOperationObject[];
-        predicatesMetada.map(metadata => {
-            TRAPIOps = [...TRAPIOps, ...this.parsePredicateEndpoint(metadata)]
-        })
+        predicatesMetada.map((metadata) => {
+            TRAPIOps = [...TRAPIOps, ...this.parsePredicateEndpoint(metadata)];
+        });
         return [...nonTRAPIOps, ...TRAPIOps];
     }
 }
