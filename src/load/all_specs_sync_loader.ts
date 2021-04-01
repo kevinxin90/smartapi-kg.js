@@ -12,8 +12,16 @@ export default class AllSpecsSyncLoader extends BaseLoader {
   }
   protected fetch(): SmartAPIQueryResult {
     const file = fs.readFileSync(this._file_path, "utf-8");
-    const data = JSON.parse(file) as SmartAPIQueryResult;
-    return data;
+    const data = JSON.parse(file) as SmartAPIQueryResult | SmartAPISpec;
+    let result;
+    if (!("hits" in data)) {
+      result = {
+        hits: [data]
+      }
+    } else {
+      result = data;
+    }
+    return result;
   }
 
   protected parse(input: SmartAPIQueryResult): SmartAPISpec[] {
