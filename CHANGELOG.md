@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.6.0](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.5.0...v3.6.0) (2021-04-01)
+
+
+### Features
+
+* :sparkles: support user only selecting a list of specs to load based on titles ([8670b6f](https://github.com/kevinxin90/smartapi-kg.js/commit/8670b6f7b370bc51fc37480dde50057c4ce69cae))
+* :sparkles: support user providing a single smartapi spec ([43f54ce](https://github.com/kevinxin90/smartapi-kg.js/commit/43f54ce4333e2cd9d2ac50866cf82a3310373e79))
+
 ## [3.5.0](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.4.0...v3.5.0) (2021-04-01)
 
 
