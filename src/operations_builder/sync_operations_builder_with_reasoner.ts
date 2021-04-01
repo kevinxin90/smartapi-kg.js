@@ -78,6 +78,7 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
       this._options.teamName,
       this._options.tag,
       this._options.component,
+      this._options.apiNames,
       this._file_path
     );
     const nonTRAPIOps = this.loadOpsFromSpecs(specs);

@@ -9,6 +9,7 @@ export interface BuilderOptions {
   teamName?: string;
   smartAPIID?: string;
   component?: string;
+  apiNames?: string[];
 }
 
 interface PredicatesQueryOperationInterface {

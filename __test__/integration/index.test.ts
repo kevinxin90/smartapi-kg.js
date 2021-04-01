@@ -167,6 +167,17 @@ describe('Test constructMetaKG from local stored specs', () => {
         expect(meta_kg.ops[4].association["x-translator"].component).toEqual("KP");
     });
 
+    test("Test construct meta-kg with a constrained list of apis", async () => {
+        const meta_kg = new MetaKG();
+        meta_kg.constructMetaKGSync(false, { apiNames: ["MyGene.info API", "MyVariant.info API"] });
+        expect(meta_kg.ops).toBeInstanceOf(Array);
+        expect(meta_kg.ops.length).toBeGreaterThan(0);
+        const apis = Array.from(new Set(meta_kg.ops.map(op => op.association.api_name)));
+        expect(apis).toHaveLength(2);
+        expect(apis).toContain("MyGene.info API");
+        expect(apis).toContain("MyVariant.info API");
+    });
+
 });
 
 
