@@ -103,6 +103,14 @@ describe('Test constructMetaKG from local stored specs', () => {
         expect(meta_kg.ops.length).toBeGreaterThan(0);
     });
 
+    test("Test construct meta-kg from local provided file path not from /query endpoint", () => {
+        const file_path = path.resolve(__dirname, '../data/mygene.json');
+        let meta_kg = new MetaKG(file_path);
+        meta_kg.constructMetaKGSync(false, {});
+        expect(meta_kg.ops).toBeInstanceOf(Array);
+        expect(meta_kg.ops.length).toBeGreaterThan(0);
+    });
+
     test("Test construct meta-kg from default file stored with the package", () => {
         let meta_kg = new MetaKG();
         meta_kg.constructMetaKGSync(false, {});
