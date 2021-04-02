@@ -32,7 +32,7 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
   private parsePredicateEndpoint(
     metadata: PredicatesMetadata
   ): SmartAPIKGOperationObject[] {
-    const ops = [] as SmartAPIKGOperationObject[];
+    let ops = [] as SmartAPIKGOperationObject[];
     Object.keys(metadata.predicates).map((sbj) => {
       Object.keys(metadata.predicates[sbj]).map((obj) => {
         if (Array.isArray(metadata.predicates[sbj][obj])) {
@@ -63,6 +63,9 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
         }
       });
     });
+    if (!(typeof this._options.apiNames === "undefined")) {
+      return ops.filter(op => this._options.apiNames.includes(op.association.api_name))
+    }
     return ops;
   }
 
