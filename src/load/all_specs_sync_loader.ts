@@ -12,7 +12,7 @@ export default class AllSpecsSyncLoader extends BaseLoader {
     this._file_path = path;
   }
   protected fetch(): SmartAPIQueryResult {
-    debug(`Fetching from file path: ${this._file_path}`)
+    debug(`Fetching from file path: ${this._file_path}`);
     const file = fs.readFileSync(this._file_path, "utf-8");
     const data = JSON.parse(file) as SmartAPIQueryResult | SmartAPISpec;
     let result;
@@ -23,7 +23,7 @@ export default class AllSpecsSyncLoader extends BaseLoader {
     } else {
       result = data;
     }
-    debug(`Hits in inputs: ${'hits' in data}`)
+    debug(`Hits in inputs: ${"hits" in data}`);
     return result;
   }
 
