@@ -64,7 +64,9 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
       });
     });
     if (!(typeof this._options.apiNames === "undefined")) {
-      return ops.filter(op => this._options.apiNames.includes(op.association.api_name))
+      return ops.filter((op) =>
+        this._options.apiNames.includes(op.association.api_name)
+      );
     }
     return ops;
   }
