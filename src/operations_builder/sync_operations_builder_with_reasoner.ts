@@ -33,6 +33,9 @@ export default class SyncOperationsBuilderWithReasoner extends BaseOperationsBui
     metadata: PredicatesMetadata
   ): SmartAPIKGOperationObject[] {
     let ops = [] as SmartAPIKGOperationObject[];
+    if (!("predicates" in metadata)) {
+      return ops;
+    }
     Object.keys(metadata.predicates).map((sbj) => {
       Object.keys(metadata.predicates[sbj]).map((obj) => {
         if (Array.isArray(metadata.predicates[sbj][obj])) {
