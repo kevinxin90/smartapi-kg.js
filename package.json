@@ -16,9 +16,9 @@
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
     "release": "npm run format && standard-version",
-    "release:minor": "npm run format && standard-version --release-as minor",
-    "release:patch": "npm run format && standard-version --release-as patch",
-    "release:major": "npm run format && standard-version --release-as major"
+    "release:minor": "npm run format && npm run bundle && standard-version --release-as minor",
+    "release:patch": "npm run format && npm run bundle && standard-version --release-as patch",
+    "release:major": "npm run format && npm run bundle && standard-version --release-as major"
   },
   "repository": {
     "type": "git",
