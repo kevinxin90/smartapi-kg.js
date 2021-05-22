@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.8.1](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.8.0...v3.8.1) (2021-05-22)
+
+
+### Bug Fixes
+
+* :bug: check "x-bte-kgs-operations" as an array ([ceb001f](https://github.com/kevinxin90/smartapi-kg.js/commit/ceb001fce23046ae0e6aabc999c450085c5815b0))
+* :bug: fix issue when predicates is not found ([c504cd1](https://github.com/kevinxin90/smartapi-kg.js/commit/c504cd1c2c0fb36314fa1f3b1b6d784036f7010f))
+
 ## [3.8.0](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.7.0...v3.8.0) (2021-05-10)
 
 ## [3.7.0](https://github.com/kevinxin90/smartapi-kg.js/compare/v3.6.0...v3.7.0) (2021-04-02)
