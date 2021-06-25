@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc --project ./",
     "bundle": "webpack --config webpack.config.js",
-    "test": "jest",
-    "test-cov": "jest --coverage",
+    "test": "jest --env=node",
+    "test-cov": "jest --coverage --env=node",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "format": "prettier --write \"src/**/*.ts\" \"built/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
