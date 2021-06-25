@@ -8,7 +8,7 @@ import { ReasonerPredicatesResponse } from "../types";
 import API from "../parser/index";
 import axios from "axios";
 import Debug from "debug";
-const debug = Debug("smartapi-kg:OperationsBuilder");
+const debug = Debug("bte:smartapi-kg:OperationsBuilder");
 
 export default class AsyncOperationsBuilderWithReasoner extends AsyncOperationsBuilder {
   private getTRAPIWithPredicatesEndpoint(

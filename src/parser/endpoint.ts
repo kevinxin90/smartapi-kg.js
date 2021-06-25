@@ -137,7 +137,10 @@ export default class Endpoint {
     ["get", "post"].map((method) => {
       if (method in this.pathItemObject) {
         const pathParams = this.fetchPathParams(this.pathItemObject[method]);
-        if ("x-bte-kgs-operations" in this.pathItemObject[method]) {
+        if (
+          "x-bte-kgs-operations" in this.pathItemObject[method] &&
+          Array.isArray(this.pathItemObject[method]["x-bte-kgs-operations"])
+        ) {
           let operation;
           let op;
           for (const rec of this.pathItemObject[method][
